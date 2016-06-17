@@ -1,14 +1,9 @@
 {
-  "name": "reddit-random-quote-generator",
-  "description": "A random quote generator made for fun by people over at /r/web_design",
+  "name": "Weekly Dev Site",
+  "description": "A weekly development website",
   "main": "app.js",
-  "authors": [
-    "RCady",
-    "omegadeep10",
-    "joerob2468"
-  ],
-  "license": "ISC",
-  "homepage": "https://github.com/RCady/reddit-random-quote-generator",
+  "license": "MIT",
+  "homepage": "https://github.com/WebDev-Weekly/weekly-dev-site",
   "private": true,
   "ignore": [
     "**/.*",
