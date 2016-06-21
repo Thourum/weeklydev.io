@@ -1,5 +1,6 @@
 'use strict';
 
+const bcrypt = require('bcrypt');
 const Boom = require('boom');
 const User = require('../models/User');
 const createUserSchema = require('../schemas/createUser');
