@@ -25,7 +25,7 @@ const SubmissionModel = new Schema({
 		type: String,
 		required: true
 	},
-	submission_time {
+	created_on {
 		type: Date,
 		required: true
 	}

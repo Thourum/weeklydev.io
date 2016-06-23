@@ -17,7 +17,7 @@ const ProjectModel = new Schema({
 		type: String,
 		required: true
 	},
-	init_timestamp: {
+	created_on: {
 		type: Date,
 		required: true
 	}
