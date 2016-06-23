@@ -26,6 +26,18 @@ const UserModel = new Schema({
 	admin: {
 		type: Boolean,
 		required: true
+	},
+	team_id: {
+		type: String,
+		required: false
+	},
+	survey_id: {
+		type: String,
+		required: false
+	},
+	is_searching: {
+		type: Boolean,
+		required: true
 	}
 });
 
