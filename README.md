@@ -1,5 +1,5 @@
-# weekly-dev-site
-This is a collaboration website where developers can can assemble small teams of developers to make projects, learn, interact, and build portfolios.
+# WeeklyDev.io
+This is the source to the WeeklyDev.io API and Member's Panel Frontend
 
 # Installation
 To pull the repo, use `git clone https://github.com/WebDev-Weekly/weekly-dev-site.git weekly-dev-site`
