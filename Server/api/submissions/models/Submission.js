@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 
 const SubmissionModel = new Schema({
 	project_id: {
-		type: ObjectId
+		type: ObjectId,
 		required: true
 	},
 	team_id: {
