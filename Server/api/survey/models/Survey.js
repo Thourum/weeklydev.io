@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 
 const SurveyModel = new Schema({
 	user_id: {
-		type: String,
+		type: ObjectId,
 		required: true
 	},
 	preferred_role: {

@@ -28,11 +28,11 @@ const UserModel = new Schema({
 		required: true
 	},
 	team_id: {
-		type: String,
+		type: ObjectId,
 		required: false
 	},
 	survey_id: {
-		type: String,
+		type: ObjectId,
 		required: false
 	},
 	is_searching: {

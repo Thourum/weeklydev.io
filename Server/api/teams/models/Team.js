@@ -6,31 +6,31 @@ const Schema = mongoose.Schema;
 
 const TeamModel = new Schema({
 	project_id: {
-		type: String,
+		type: ObjectId,
 		required: true
 	},
 	project_submission_id: {
-		type: String,
+		type: ObjectId,
 		required: true
 	},
 	project_manager: {
-		type: String,
+		type: ObjectId,
 		required: true
 	},
 	lead_frontend: {
-		type: String,
+		type: ObjectId,
 		required: true
 	},
 	frontend: {
-		type: String,
+		type: ObjectId,
 		required: true
 	},
 	lead_backend: {
-		type: String,
+		type: ObjectId,
 		required: true
 	},
 	backend: {
-		type: String,
+		type: ObjectId,
 		required: true
 	}
 });

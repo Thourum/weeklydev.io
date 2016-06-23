@@ -6,14 +6,14 @@ const Schema = mongoose.Schema;
 
 const SubmissionModel = new Schema({
 	project_id: {
-		type: String,
+		type: ObjectId
 		required: true
 	},
 	team_id: {
-		type: String,
+		type: ObjectId,
 		required: true
 	},
-	thumbnail_id: {
+	thumbnail_url: {
 		type: String,
 		required: true
 	},
