@@ -9,7 +9,7 @@ const createToken = require('../util/token');
 
 module.exports = {
 	method: 'POST',
-	path: '/api/users',
+	path: '/api/user',
 	config: {
 		auth: false,
 		// Before the route handler runs, verify that
@@ -24,6 +24,8 @@ module.exports = {
 			user.email = req.payload.email;
 			user.username = req.payload.username;
 			user.admin = false;
+			user.is_searching = true;
+			user.password = req.payload.username
 			user.save((err, user) => {
 				if (err) {
 					throw Boom.badRequest(err);
