@@ -44,7 +44,12 @@ const UserModel = new Schema({
 	created_on: {
 		type: Date,
 		default: Date.now
-	}
+	},
+  token: String,
+  token_Expire: {
+    Set: {type: Date, default: Date.now },
+    Expire: Date,
+  }
 });
 
 UserModel
@@ -113,7 +118,7 @@ UserModel.methods = {
     });
   },
 
-/**
+  /**
    * Make salt
    *
    * @param {Number} byteSize Optional salt byte size, default to 16
