@@ -22,57 +22,62 @@ Finally, to start the server and view the application, run `npm start` and visit
 
 ## User Stories
 **As a user I...**
-	- can view, update, and edit my responses to the questionnaire I filled out upon sign up
-	- can view, update, and edit my personal information like my email (username)
-	- can create a new team and select which role I want to be in
-	- can find a team that is searching for the role I select (Front, Back, PM)
-	- can be placed onto a team automatically with a “Choose what’s best for me” option
-	- must click a link in my email or my user menu if I’ve been invited to join a team through matchmaking
-	- can look through a history of my completed projects, and previous teams I’ve been a part of along with what role I was
-	- can set if I am actively wanting to be placed on a team
+- can view, update, and edit my responses to the questionnaire I filled out upon sign up
+- can view, update, and edit my personal information like my email (username)
+- can create a new team and select which role I want to be in
+- can find a team that is searching for the role I select (Front, Back, PM)
+- can be placed onto a team automatically with a “Choose what’s best for me” option
+- must click a link in my email or my user menu if I’ve been invited to join a team through matchmaking
+- can look through a history of my completed projects, and previous teams I’ve been a part of along with what role I was
+- can set if I am actively wanting to be placed on a team
 **As an admin I…**
-	- can add and remove users from a team
-	- can manually build teams
-	- can search through a list of users and remove them from their team
+- can add and remove users from a team
+- can manually build teams
+- can search through a list of users and remove them from their team
 
 ## DB Models
+
 **Users**
-	ID (OID)
-	Username (String)
-	Email (String)
-	Password (String)
-	Current Team ID (Team OID)
-	Questionnaire Response (Questionnaire OID)
-	Admin (Boolean)
-	Active (Boolean)
+- ID (OID)
+- Username (String)
+- Email (String)
+- Password (String)
+- Current Team ID (Team OID)
+- Questionnaire Response (Questionnaire OID)
+- Admin (Boolean)
+- Active (Boolean)
+
 **Questionnaire Responses**
-	ID (OID)
-	User ID (User OID)
-	Preferred Role (Frontend, Backend)
-	Willing to be Project Manager (Boolean) * Not in questionnaire, asked during match making…?
-	Skill Level (INT 1 to 5)
-	Project Size Preference (Small, Medium, Large)
-	Timezone (User’s UTC offset)
+- ID (OID)
+- User ID (User OID)
+- Preferred Role (Frontend, Backend)
+- Willing to be Project Manager (Boolean) * Not in questionnaire, asked during match making…?
+- Skill Level (INT 1 to 5)
+- Project Size Preference (Small, Medium, Large)
+- Timezone (User’s UTC offset)
+
 **Teams**
-	ID (OID)
-	Project ID (OID)
-	Project Submission ID (OID, Null initially)
-	Project Manager (User OID)
-	Lead Frontend (User OID)
-	Frontend (User OID)
-	Lead Backend (User OID)
-	Backend (User OID)
+- ID (OID)
+- Project ID (OID)
+- Project Submission ID (OID, Null initially)
+- Project Manager (User OID)
+- Lead Frontend (User OID)
+- Frontend (User OID)
+- Lead Backend (User OID)
+- Backend (User OID)
+
 **Projects**
-	ID (OID)
-	Title (String)
-	Details (String)
-	Deadline (String)
-	Date Created (Timestamp)
+- ID (OID)
+- Title (String)
+- Details (String)
+- Deadline (String)
+- Date Created (Timestamp)
+
 **Project Submissions**
-	- ID (OID)
-	- Project ID (OID)
-	- Team ID (OID)
-	- Thumbnail URL (String)
-	- Gallery Images (String Array)
-	- Github Repo URL (String)
-	- Submitted On (Timestamp)
+- ID (OID)
+- Project ID (OID)
+- Team ID (OID)
+- Thumbnail URL (String)
+- Gallery Images (String Array)
+- Github Repo URL (String)
+- Submitted On (Timestamp)
