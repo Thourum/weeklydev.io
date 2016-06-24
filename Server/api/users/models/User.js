@@ -87,6 +87,32 @@ UserModel
 
 UserModel.methods = {
 
+	/**
+   * Authenticate - check if the passwords are the same
+   *
+   * @param {String} password
+   * @param {Function} callback
+   * @return {Boolean}
+   * @api public
+   */
+  authenticate(password, callback) {
+    if (!callback) {
+      return this.password === this.encryptPassword(password);
+    }
+
+    this.encryptPassword(password, (err, pwdGen) => {
+      if (err) {
+        return callback(err);
+      }
+
+      if (this.password === pwdGen) {
+        callback(null, true);
+      } else {
+        callback(null, false);
+      }
+    });
+  },
+
 /**
    * Make salt
    *
