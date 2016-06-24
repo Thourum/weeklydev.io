@@ -15,7 +15,7 @@ const UserModel = new Schema({
 	password: {
 		type: String,
 		required: true
-	}
+	},
 	username: {
 		type: String,
 		required: true,
@@ -28,11 +28,11 @@ const UserModel = new Schema({
 		required: true
 	},
 	team_id: {
-		type: ObjectId,
+		type: Schema.Types.ObjectId,
 		required: false
 	},
 	survey_id: {
-		type: ObjectId,
+		type: Schema.Types.ObjectId,
 		required: false
 	},
 	is_searching: {
