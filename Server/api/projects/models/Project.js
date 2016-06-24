@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-const ProjectModel = new Schema({
+var ProjectModel = new Schema({
 	title: {
 		type: String,
 		required: true
@@ -15,12 +15,12 @@ const ProjectModel = new Schema({
 	},
 	deadline: {
 		type: String,
-		required: true
+		required: false
 	},
 	created_on: {
 		type: Date,
-		required: true
+		required: false
 	}
 });
 
-module.exports = mongoose.model('Project', ProjectModel, 'projects');
+module.exports = mongoose.model('Project', ProjectModel);
