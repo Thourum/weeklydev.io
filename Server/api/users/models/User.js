@@ -40,6 +40,10 @@ const UserModel = new Schema({
 		type: Boolean,
 		default: true,
 		required: true
+	},
+	created_on: {
+		type: Date,
+		default: Date.now
 	}
 });
 
