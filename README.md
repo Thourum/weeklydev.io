@@ -30,6 +30,7 @@ Finally, to start the server and view the application, run `npm start` and visit
 - must click a link in my email or my user menu if I’ve been invited to join a team through matchmaking
 - can look through a history of my completed projects, and previous teams I’ve been a part of along with what role I was
 - can set if I am actively wanting to be placed on a team
+
 **As an admin I…**
 - can add and remove users from a team
 - can manually build teams
