@@ -25,6 +25,7 @@ server.register(require('hapi-auth-jwt'), (err) => {
 		verifyOptions: {
 			algorithms: ['HS256']
 		}
+server.register(require('hapi-auth-jwt2'), (err) => {
 	});
 
 	// Look through the routes in
