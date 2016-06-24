@@ -1,20 +1,11 @@
 'use strict';
 
-const bcrypt = require('bcrypt');
 const Boom = require('boom');
 const User = require('../models/User');
 const createUserSchema = require('../schemas/createUser');
 const verifyUniqueUser = require('../util/userFunctions').verifyUniqueUser;
 const createToken = require('../util/token');
 
-// function hashPassword(password, cb) {
-// 	// Generate a salt at level 10 strength
-// 	bcrypt.genSalt(10, (err, salt) => {
-// 		bcrypt.hash(password, salt, (err, hash) => {
-// 			return cb(err, hash);
-// 		});
-// 	});
-// }
 
 module.exports = {
 	method: 'POST',
