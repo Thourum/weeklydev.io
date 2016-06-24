@@ -1,25 +1,17 @@
 'use strict';
 
-const bcrypt = require('bcrypt');
 const Boom = require('boom');
 const User = require('../models/User');
 const createUserSchema = require('../schemas/createUser');
 const verifyUniqueUser = require('../util/userFunctions').verifyUniqueUser;
 const createToken = require('../util/token');
 
-// function hashPassword(password, cb) {
-// 	// Generate a salt at level 10 strength
-// 	bcrypt.genSalt(10, (err, salt) => {
-// 		bcrypt.hash(password, salt, (err, hash) => {
-// 			return cb(err, hash);
-// 		});
-// 	});
-// }
 
 module.exports = {
 	method: 'POST',
-	path: '/api/users',
+	path: '/api/user',
 	config: {
+		auth: false,
 		// Before the route handler runs, verify that
 		// the user is unique and assign the result to 'user'
 		pre: [{
@@ -32,6 +24,8 @@ module.exports = {
 			user.email = req.payload.email;
 			user.username = req.payload.username;
 			user.admin = false;
+			user.is_searching = true;
+			user.password = req.payload.username
 			user.save((err, user) => {
 				if (err) {
 					throw Boom.badRequest(err);
@@ -48,4 +42,4 @@ module.exports = {
 			payload: createUserSchema
 		}
 	}
-}
+};

@@ -5,8 +5,10 @@ const mongoose = require('mongoose');
 const Boom = require('boom');
 const glob = require('glob');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 const secret = require('./config');
 const server = new Hapi.Server();
+const validate = require('./verify.js');
 
 // Setup hapi server
 server.connection({
@@ -16,17 +18,17 @@ server.connection({
 const dbUrl = 'mongodb://localhost:27017/WOIP-backend';
 
 // Register the jwt auth plugin
-server.register(require('hapi-auth-jwt'), (err) => {
+server.register(require('hapi-auth-jwt2'), (err) => {
 
-	// We're giving the strategy both a name
-	// and scheme of 'jwt'
-	server.auth.strategy('jwt', 'jwt', {
-		key: secret,
-		verifyOptions: {
-			algorithms: ['HS256']
+	server.auth.strategy('jwt', 'jwt',{
+		key: secret,          		// Never Share your secret key
+		validateFunc: validate,   // validate function defined above
+		verifyOptions: { 
+			algorithms: [ 'HS256' ] // pick a strong algorithm
 		}
 	});
 
+	server.auth.default('jwt');
 	// Look through the routes in
 	// all the subdirectories of API
 	// and create a new route for each
