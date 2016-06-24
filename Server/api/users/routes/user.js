@@ -9,7 +9,7 @@ const createToken = require('../util/token');
 
 module.exports = {
 	method: 'POST',
-	path: '/api/user',
+	path: '/user',
 	config: {
 		auth: false,
 		// Before the route handler runs, verify that
@@ -43,3 +43,17 @@ module.exports = {
 		}
 	}
 };
+
+module.exports = {
+	method: 'GET',
+	path: '/user',
+	config: {
+		auth: false
+	},
+	handler: (req, res) => {
+		res({
+			success: true,
+			message: "List of users"
+		});
+	}
+}

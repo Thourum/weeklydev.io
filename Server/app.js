@@ -45,10 +45,16 @@ server.start((err) => {
 	if (err) {
 		throw err;
 	}
+	else {
+		console.log("Server Started");
+	}
 	// Make a connection to the mongodb server
 	mongoose.connect(dbUrl, {}, (err) => {
 		if (err) {
 			throw err;
+		}
+		else {
+			console.log("Connected to MongoDB");
 		}
 	});
 
