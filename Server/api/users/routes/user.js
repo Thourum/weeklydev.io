@@ -20,6 +20,7 @@ module.exports = {
 	method: 'POST',
 	path: '/api/users',
 	config: {
+		auth: false,
 		// Before the route handler runs, verify that
 		// the user is unique and assign the result to 'user'
 		pre: [{
