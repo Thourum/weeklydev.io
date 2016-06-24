@@ -38,6 +38,7 @@ const UserModel = new Schema({
 	},
 	is_searching: {
 		type: Boolean,
+		default: true,
 		required: true
 	}
 });

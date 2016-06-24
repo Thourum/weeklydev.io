@@ -24,7 +24,6 @@ module.exports = {
 			user.email = req.payload.email;
 			user.username = req.payload.username;
 			user.admin = false;
-			user.is_searching = true;
 			user.password = req.payload.username
 			user.save((err, user) => {
 				if (err) {
