@@ -44,3 +44,4 @@ dist
 .sass-cache
 bower_components
 public/components
+Client/public/components
