@@ -7,7 +7,7 @@ const verifyUniqueUser = require('../util/userFunctions').verifyUniqueUser;
 const createToken = require('../util/token');
 
 
-module.exports = {
+module.exports = [{
 	method: 'POST',
 	path: '/users/new',
 	config: {
@@ -43,9 +43,7 @@ module.exports = {
 			payload: createUserSchema
 		}
 	}
-};
-
-module.exports = {
+}, {
 	method: 'GET',
 	path: '/users',
 	config: {
@@ -57,4 +55,4 @@ module.exports = {
 			message: "List of users"
 		});
 	}
-}
+}];
