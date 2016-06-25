@@ -50,6 +50,8 @@ const UserModel = new Schema({
     Set: {type: Date, default: Date.now },
     Expire: Date,
   }
+  },
+  salt: String,
 });
 
 UserModel
