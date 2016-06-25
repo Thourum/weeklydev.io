@@ -1,5 +1,5 @@
 {
-  "name": "weekly-dev-site",
+  "name": "weekly-dev-site", 
   "version": "1.0.0",
   "private": true,
   "description": "A collaboration website where developers can can assemble small teams of developers to make projects, learn, interact, and build portfolios.",
