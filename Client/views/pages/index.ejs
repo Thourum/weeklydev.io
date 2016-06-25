@@ -6,8 +6,20 @@
   <body>
     <% include ../partials/nav %>
 
-    <h1><%= title %></h1>
+    <app-main></app-main>
 
     <% include ../partials/scripts %>
+    <script src="tags/app-main.tag" type="riot/tag"></script>
+    <script src="tags/app-navi.tag" type="riot/tag"></script>
+    <script src="components/riot/riot+compiler.js"></script>
+    <!-- Mount Riot App -->
+    <script>
+    riot.compile(function()
+    {
+      riot.route.base('/')
+      riot.mount('*')
+      riot.route.start(true)
+    })
+    </script>
   </body>
 </html>  
