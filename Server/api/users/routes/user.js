@@ -46,7 +46,7 @@ module.exports = {
 
 module.exports = {
 	method: 'GET',
-	path: '/user',
+	path: '/users',
 	config: {
 		auth: false
 	},
