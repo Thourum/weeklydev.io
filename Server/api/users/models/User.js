@@ -38,8 +38,20 @@ const UserModel = new Schema({
 	},
 	is_searching: {
 		type: Boolean,
+		default: true,
 		required: true
-	}
+	},
+	created_on: {
+		type: Date,
+		default: Date.now
+	},
+  token: String,
+  token_Expire: {
+    Set: {type: Date, default: Date.now },
+    Expire: Date,
+  }
+  },
+  salt: String,
 });
 
 UserModel
@@ -82,7 +94,33 @@ UserModel
 
 UserModel.methods = {
 
-/**
+	/**
+   * Authenticate - check if the passwords are the same
+   *
+   * @param {String} password
+   * @param {Function} callback
+   * @return {Boolean}
+   * @api public
+   */
+  authenticate(password, callback) {
+    if (!callback) {
+      return this.password === this.encryptPassword(password);
+    }
+
+    this.encryptPassword(password, (err, pwdGen) => {
+      if (err) {
+        return callback(err);
+      }
+
+      if (this.password === pwdGen) {
+        callback(null, true);
+      } else {
+        callback(null, false);
+      }
+    });
+  },
+
+  /**
    * Make salt
    *
    * @param {Number} byteSize Optional salt byte size, default to 16

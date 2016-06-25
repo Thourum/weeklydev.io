@@ -24,15 +24,16 @@ module.exports = {
 			user.email = req.payload.email;
 			user.username = req.payload.username;
 			user.admin = false;
-			user.is_searching = true;
-			user.password = req.payload.username
+			user.password = req.payload.password;
+			user.token = createToken(user);
+			user.token_Expire.Expire = (Date.now() + (24 * 60 * 60));
 			user.save((err, user) => {
 				if (err) {
 					throw Boom.badRequest(err);
 				}
 				// If the user is saved successfully, Send a JWT
 				res({
-					id_token: createToken(user)
+					id_token: user.token,
 				}).code(201);
 			});
 		},
