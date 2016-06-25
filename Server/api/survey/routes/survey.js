@@ -1,6 +1,6 @@
 module.exports = {
 	method: 'GET',
-	path: '/survey',
+	path: '/surveys',
 	handler: (req, res) => {
 		res({
 			success: true,

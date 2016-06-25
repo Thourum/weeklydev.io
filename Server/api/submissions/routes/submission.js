@@ -1,6 +1,6 @@
 module.exports = {
 	method: 'GET',
-	path: '/submission',
+	path: '/submissions',
 	handler: (req, res) => {
 		res({
 			success: true,

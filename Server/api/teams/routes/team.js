@@ -1,6 +1,6 @@
 module.exports = {
 	method: 'GET',
-	path: '/team',
+	path: '/teams',
 	handler: (req, res) => {
 		res({
 			success: true,

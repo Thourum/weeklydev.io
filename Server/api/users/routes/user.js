@@ -9,7 +9,7 @@ const createToken = require('../util/token');
 
 module.exports = {
 	method: 'POST',
-	path: '/user',
+	path: '/users',
 	config: {
 		auth: false,
 		// Before the route handler runs, verify that

@@ -3,7 +3,7 @@ var Project = require('../models/Project');
 module.exports = [{
 	// Return all documents from the projects collection
 	method: 'GET',
-	path: '/project',
+	path: '/projects',
 	config: {
 		auth: false
 	},
@@ -16,7 +16,7 @@ module.exports = [{
 }, {
 	// Get a project by that project's object ID
 	method: 'GET',
-	path: '/project/id/{id}',
+	path: '/projects/{id}',
 	config: {
 		auth: false
 	},
@@ -30,7 +30,7 @@ module.exports = [{
 	// Method for adding will be changed to POST and will require auth
 	// It's set to GET for testing purposes
 	method: 'GET',
-	path: '/project/add',
+	path: '/projects/add',
 	config: {
 		auth: false
 	},
