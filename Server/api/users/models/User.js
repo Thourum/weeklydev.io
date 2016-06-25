@@ -1,6 +1,6 @@
 'use strict';
 
-const crypto = require('crypto');
+const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -127,29 +127,28 @@ UserModel.methods = {
    * @return {String}
    * @api public
    */
-  makeSalt(byteSize, callback) {
-    var defaultByteSize = 16;
-
+makeSalt(rounds, callback) {
+    var defaultRounds = 10;
     if (typeof arguments[0] === 'function') {
       callback = arguments[0];
-      byteSize = defaultByteSize;
+      rounds = defaultRounds;
     } else if (typeof arguments[1] === 'function') {
       callback = arguments[1];
     }
 
-    if (!byteSize) {
-      byteSize = defaultByteSize;
+    if (!rounds) {
+      rounds = defaultRounds;
     }
 
     if (!callback) {
-      return crypto.randomBytes(byteSize).toString('base64');
+      return bcrypt.genSaltSync(rounds);
     }
 
-    return crypto.randomBytes(byteSize, (err, salt) => {
+    return bcrypt.genSalt(rounds, (err, salt) => {
       if (err) {
         callback(err);
       } else {
-        callback(null, salt.toString('base64'));
+        callback(null, salt);
       }
     });
   },
@@ -167,16 +166,13 @@ UserModel.methods = {
       return null;
     }
 
-    var defaultIterations = 10000;
-    var defaultKeyLength = 64;
-    var salt = new Buffer(this.salt, 'base64');
+    var salt = this.salt;
 
     if (!callback) {
-      return crypto.pbkdf2Sync(password, salt, defaultIterations, defaultKeyLength)
-                   .toString('base64');
+      return bcrypt.hashSync(password , salt).toString('base64');
     }
 
-    return crypto.pbkdf2(password, salt, defaultIterations, defaultKeyLength, (err, key) => {
+    return bcrypt.hash(password , salt, (err, key) => {
       if (err) {
         callback(err);
       } else {
