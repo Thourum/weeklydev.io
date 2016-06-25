@@ -15,7 +15,8 @@ function createToken(user) {
 	return jwt.sign({
 		id: user._id,
 		username: user.username,
-		scope: scopes
+		scope: scopes,
+		random: user.makeSalt(Math.floor(Math.random() * (99 - 10) + 10)).toString('Base64') // a bit of randomization // TODO: should be more random then this...
 	}, secret, {
 		algorithm: 'HS256',
 		expiresIn: "24h"
