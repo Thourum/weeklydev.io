@@ -9,9 +9,7 @@
     <app-main></app-main>
 
     <% include ../partials/scripts %>
-    <script src="tags/app-main.tag" type="riot/tag"></script>
-    <script src="tags/app-navi.tag" type="riot/tag"></script>
-    <script src="components/riot/riot+compiler.js"></script>
+    <% include ../partials/riotimports %>
     <!-- Mount Riot App -->
     <script>
     riot.compile(function()

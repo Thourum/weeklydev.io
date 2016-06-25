@@ -1,69 +1,53 @@
 <app-main>
 
-<app-navi links="{ links }"></app-navi>
+<app-navi links="{ pages }"></app-navi>
 
-<div class="row">
-  <div class="large-12 columns text-center">
-    <article>
-      <h1>{ title }</h1>
-      <p>{ body }</p>
-      <ul if={ isFirst }>
-        <li each={ data }><a href="#first/{ id }">{ title }</a></li>
-      </ul>
-    </article>
-  </div>
-</div>
+<!-- this div is the mount point for our pages -->
+<div id="content">Loading...</div>
 
 <script>
-  var self = this
-  self.title = 'Now loading...'
-  self.body = ''
-  self.data = [
-    { id: 'apple', title: 'Apple', body: "The world biggest fruit company." },
-    { id: 'orange', title: 'Orange', body: "I don't have the word for it..." }
-  ]
-  self.links = [
-    { name: "Home", url: "" },
-    { name: "First", url: "first" },
-    { name: "Second", url: "second" }
-  ]
+  var self = this;
 
-  var r = riot.route.create()
-  r('/', home)
-  r('first', first)
-  r('first/*', firstDetail)
-  r('second', second)
-  r(home) // routes everything else to home.
+  self.pages = [
+    { name: 'Home', url: '', page: 'home-page' },
+    { name: 'Register', url: 'register', page: 'register-page' },
+    { name: 'Login', url: 'login', page: 'login-page' }
+  ];
 
-  function home() {
-    self.update({
-      title:  "Home of the great app",
-      body:  "Timeline or dashboard as you like!",
-      isFirst: false
-    })
-  }
-  function first() {
-    self.update({
-      title: "First feature of your app",
-      body: "It could be a list of something for example.",
-      isFirst: true
-    })
-  }
-  function firstDetail(id) {
-    var selected = self.data.filter(function(d) { return d.id == id })[0] || {}
-    self.update({
-      title: selected.title,
-      body: selected.body,
-      isFirst: false
-    })
-  }
-  function second() {
-    self.update({
-      title: "Second feature of your app",
-      body: "It could be a config page for example.",
-      isFirst: false
-    })
-  }
+  // hold our current page
+  var currentPage = null;
+
+  function goTo(path)
+  {
+    // unmount the current page if it exists
+    if (currentPage)
+    {
+      currentPage.unmount(true); 
+      currentPage = null;
+    }
+
+    // loop through pages and route to them if the url matches
+    for (var i=0; i<self.pages.length; i++)
+    {
+      var page = self.pages[i];
+
+      if (path === page.url)
+      {
+        currentPage = riot.mount('div#content', page.page)[0];
+        break;
+      }
+    }
+
+    // if no page was found, render the home page again
+    if (!currentPage)
+    {
+      currentPage = riot.mount('div#content', 'home-page')[0];
+    }
+  } // end goTo
+
+  // actually hook in our routing
+  riot.route(goTo);
+  riot.route.exec(goTo);
 </script>
 
 </app-main>
