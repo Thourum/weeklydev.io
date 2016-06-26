@@ -44,15 +44,42 @@ module.exports = [{
 		}
 	}
 }, {
-	method: 'GET',
-	path: '/users',
+	/**
+	 * Update user by ID
+	 */
+	method: 'PUT',
+	path: '/users/{id}',
 	config: {
 		auth: false
 	},
 	handler: (req, res) => {
-		res({
-			success: true,
-			message: "List of users"
+		var id = req.params.id;
+		User.findByIdAndUpdate(id, { $set: { username: req.payload.username }}, function (err, user) {
+			if (err) return console.error(err);
+			res( user );
 		});
+	}
+}, {
+	/**
+	 * Get all users or one user by id
+	 */
+	method: 'GET',
+	path: '/users/{id?}',
+	config: {
+		auth: false
+	},
+	handler: (req, res) => {
+		if (req.params.id){
+			User.findById(req.params.id, function (err, user) {
+				if (err) return console.error(err);
+				res( user );
+			});
+		}
+		else {
+			User.find(function(err, users){
+				if (err) return console.error(err);
+				res( users );
+			});
+		};
 	}
 }];
