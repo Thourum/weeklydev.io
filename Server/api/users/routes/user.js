@@ -54,7 +54,12 @@ module.exports = [{
 	},
 	handler: (req, res) => {
 		var id = req.params.id;
-		User.findByIdAndUpdate(id, { $set: { username: req.payload.username }}, function (err, user) {
+		User.findByIdAndUpdate(id, { $set: {
+			username: req.payload.username,
+			email: req.payload.email,
+			admin: req.payload.admin,
+			password: req.payload.password
+			}}, function (err, user) {
 			if (err) return console.error(err);
 			res( user );
 		});
