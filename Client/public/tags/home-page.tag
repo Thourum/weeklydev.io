@@ -5,7 +5,7 @@
     <h1>Welcome to the home page!</h1>
     <br>
     <p>You should probably log in.</p>
-    <a href="/#login" class="button">Login</a>
+    <a href="/login" class="button">Login</a>
   </div>
 </div>
 

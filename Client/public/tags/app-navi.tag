@@ -7,7 +7,7 @@
     <div class="medium-6 columns text-center medium-text-right">
     <ul>
       <li each={ links }>
-        <a href="/#{ url }" class={ selected: parent.selectedId === url }>{ name }</a>
+        <a href="/{ url }" class={ selected: parent.selectedId === url }>{ name }</a>
       </li>
     </div>
   </div>
