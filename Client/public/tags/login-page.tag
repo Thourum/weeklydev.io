@@ -13,7 +13,7 @@
           <input name="password" type="password" placeholder="Password">
         </label>
         <p><button type="submit" class="button expanded">Log In</button></p>
-        <p class="text-center"><a href="#register">Don't have an account? Register.</a></p>   
+        <p class="text-center"><a href="/register">Don't have an account? Register.</a></p>   
       </div>
     </form>
 

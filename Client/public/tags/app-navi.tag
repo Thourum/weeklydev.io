@@ -2,7 +2,7 @@
 <nav class="main">
   <div class="row">
     <div class="medium-6 columns text-center medium-text-left">
-      <a href="/#{ links[0].url }">Logo</a>
+      <a href="/{ links[0].url }">Logo</a>
     </div>
     <div class="medium-6 columns text-center medium-text-right">
     <ul>

@@ -16,7 +16,7 @@
           <input name="password-confirm" type="password" placeholder="Password">
         </label>
         <p><button class="button expanded">Register</button></p>
-        <p class="text-center"><a href="#login">Already have an account? Log in.</a></p>   
+        <p class="text-center"><a href="/login">Already have an account? Log in.</a></p>   
       </div>
     </form>
 

@@ -24,7 +24,7 @@
     // unmount the current page if it exists
     if (currentPage)
     {
-      currentPage.unmount(true); 
+      currentPage.unmount(true);
       currentPage = null;
     }
 
