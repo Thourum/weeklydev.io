@@ -8,10 +8,12 @@
 <script>
   var self = this;
 
+  // This holds all the pages that we'll use for navigation. It hooks into the navigation menu
+  // and powers the routing as well.
   self.pages = [
     { name: 'Home', url: '', page: 'home-page' },
     { name: 'Register', url: 'register', page: 'register-page' },
-    { name: 'Login', url: 'login', page: 'login-page' }
+    { name: 'My Profile', url: 'login', page: 'login-page' }
   ];
 
   // hold our current page

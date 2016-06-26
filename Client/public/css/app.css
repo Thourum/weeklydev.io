@@ -6187,3 +6187,22 @@ table.hover tr:nth-of-type(even):hover {
 
 .long-delay {
   animation-delay: 700ms !important; }
+
+nav {
+  line-height: 4em;
+  background-color: #2f5b91; }
+  nav ul {
+    padding: 0;
+    margin: 0;
+    line-height: inherit; }
+    nav ul li {
+      display: inline-block;
+      list-decoration: none;
+      padding: 0 0.6em; }
+  nav a {
+    color: #accce8; }
+    nav a:hover, nav a.selected {
+      color: #FFFFFF; }
+
+.row.padded {
+  padding: 3em 0; }

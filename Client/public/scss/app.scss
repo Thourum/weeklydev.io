@@ -52,3 +52,38 @@
 @include motion-ui-animations;
 
 // Main Custom CSS for Theme
+
+nav
+{
+  line-height: 4em;
+  background-color: #2f5b91;
+
+  ul
+  {
+    padding: 0;
+    margin: 0;
+    line-height: inherit;
+
+    li
+    {
+      display: inline-block;
+      list-decoration: none;
+      padding:0 0.6em;
+    }
+  }
+
+  a
+  {
+    color: #accce8;
+
+    &:hover, &.selected
+    {
+      color: #FFFFFF;
+    }
+  }
+}
+
+.row.padded
+{
+  padding: 3em 0;
+}

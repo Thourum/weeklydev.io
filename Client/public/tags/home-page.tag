@@ -1,8 +1,11 @@
 <home-page>
 
-<div class="row">
-  <div class="large-12 columns">
-    <h1>This is the home page.</h1>
+<div class="row padded">
+  <div class="large-12 columns text-center">
+    <h1>Welcome to the home page!</h1>
+    <br>
+    <p>You should probably log in.</p>
+    <a href="/#login" class="button">Login</a>
   </div>
 </div>
 
