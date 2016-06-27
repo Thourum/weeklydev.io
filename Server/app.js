@@ -6,9 +6,10 @@ const Boom = require('boom');
 const glob = require('glob');
 const path = require('path');
 const jwt = require('jsonwebtoken');
+const validateJwt = require('./validation.js').jwt;
+const validateUserPass = require('./validation.js').basic;
 const secret = require('./config');
 const server = new Hapi.Server();
-const validate = require('./validation.js');
 
 // Setup hapi server
 server.connection({
@@ -18,15 +19,17 @@ server.connection({
 const dbUrl = 'mongodb://localhost:27017/WOIP-backend';
 
 // Register the jwt auth plugin
-server.register(require('hapi-auth-jwt2'), (err) => {
+server.register([require('hapi-auth-jwt2'),require('hapi-auth-basic')], (err) => {
 
 	server.auth.strategy('jwt', 'jwt',{
 		key: secret,          		// Never Share your secret key
-		validateFunc: validate,   // validate function defined above
+		validateFunc: validateJwt,   // validate function defined above
 		verifyOptions: { 
 			algorithms: [ 'HS256' ] // pick a strong algorithm
 		}
 	});
+
+	server.auth.strategy('userPass', 'basic',{ validateFunc: validateUserPass });
 
 	server.auth.default('jwt');
 	// Look through the routes in
