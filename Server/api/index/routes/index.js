@@ -5,7 +5,7 @@ module.exports = {
 	handler: (req, res) => {
 		res({
 			success: true,
-			message: "Server is running!",
+			message: "Server is running!"
 		});
 	}
 }
