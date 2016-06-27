@@ -87,4 +87,27 @@ module.exports = [{
 			});
 		};
 	}
+},{
+	/**
+	 * Update user by ID
+	 */
+	method: 'DELETE',
+	path: '/users/{id}',
+	config: {
+		auth: false
+	},
+	handler: (req, res) => {
+		var id = req.params.id;
+		User.findByIdAndRemove(id, (err, user) => {
+			if (err) {
+				console.error(err);
+				res(Boom.wrap(err, 400));
+			}
+			if (user) {
+				res(user).code(200);
+			}else{
+				res(Boom.notFound('User not found'));
+			}
+		});
+	}
 }];
