@@ -22,9 +22,37 @@ module.exports = {
 		auth: 'userPass', // Requires basic auth (username:password)
 	},
 	handler: (req, res) => {
+		if (req.payload.email) {
+			User.findOne({email: req.payload.username}, (err, user) => {
+				// returns some non-sensitive informations about the user
+				// TODO: [2] Should alse set cookie with the jwt
+				if (err) {
+					// TODO: Implement errors
+					res().code(404)
+				}
+				if (!user) {
+					// TODO: Implement Errors
+					res().code(404)
+				}
+				res({
+					id: user.id,
+					role: ((user.admin) ? 'admin': 'user'),
+					username: user.username,
+					token: user.token,
+				}).code(200);
+			});
+		}
 		User.findOne({username: req.payload.username}, (err, user) => {
 			// returns some non-sensitive informations about the user
 			// TODO: [2] Should alse set cookie with the jwt
+			if (err) {
+				// TODO: Implement errors
+				res().code(404)
+			}
+			if (!user) {
+				// TODO: Implement Errors
+				res().code(404)
+			}
 			res({
 				id: user.id,
 				role: ((user.admin) ? 'admin': 'user'),
