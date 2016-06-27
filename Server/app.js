@@ -8,7 +8,7 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const secret = require('./config');
 const server = new Hapi.Server();
-const validate = require('./verify.js');
+const validate = require('./validation.js');
 
 // Setup hapi server
 server.connection({
