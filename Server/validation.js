@@ -13,14 +13,17 @@ function jwtAuth (decoded, request, callback) {
 
 
 function basicAuth (request, Username, password, callback) {
-	User.findOne({username: Username}).exec( (err, user) => {
+	User.findOne({username: Username}, (err, user) => {
 		if (err) {
 			callback(err);
 		}
-		Bcrypt.compare(password, user.password, (err, isValid) => {
-			callback(err, isValid, { id: user.id, username: user.username });
-		});
-	})
+		user.authenticate(password, (err, res) =>{
+			if (err){
+				callback(err);
+			}
+			callback(null,res,{ id: user._id, username: user.username })
+		})
+	});
 };
 
 module.exports = {
