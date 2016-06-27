@@ -3,6 +3,7 @@
 const Boom = require('boom');
 const User = require('../models/User');
 const createUserSchema = require('../schemas/createUser');
+const generateUUID = require('../util/userFunctions').generateUUID;
 const verifyUniqueUser = require('../util/userFunctions').verifyUniqueUser;
 const createToken = require('../util/token');
 
@@ -31,15 +32,18 @@ module.exports = [{
 			user.username = req.payload.username;
 			user.admin = false;
 			user.password = req.payload.password;
+			user.uuid = generateUUID();
 			user.token = createToken(user);
-			user.token_Expire.Expire = (Date.now() + (24 * 60 * 60));
+			// user.token_expire.expire = (Date.now() + (24 * 60 * 60));
 			user.save((err, user) => {
 				if (err) {
 					throw Boom.badRequest(err);
 				}
 				// If the user is saved successfully, Send a JWT
 				res({
-					id_token: user.token,
+					id: user._id,
+					username: user.username,
+					token: user.token,
 				}).code(201);
 			});
 		},
@@ -104,7 +108,7 @@ module.exports = [{
 				res(Boom.wrap(err, 400));
 			}
 			if (user) {
-				res(user).code(200);
+				res().code(200);
 			}else{
 				res(Boom.notFound('User not found'));
 			}

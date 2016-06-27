@@ -19,23 +19,18 @@ module.exports = {
 			method: authenticateUser,
 			assign: 'user'
 		}],
-		auth: false,
+		auth: 'userPass', // Requires basic auth (username:password)
 	},
 	handler: (req, res) => {
-		User.findOne({username: req.payload.username}).exec()
-			.then( user => {
-				user.authenticate(req.payload.password, (err, result) => {
-					if (result) {
-					// Refresh  token
-					user.token = createToken(user);
-					user.token_Expire.Expire = (Date.now() + (24 * 60 * 60));
-					res({
-						id_token: user.token // send new token
-					}).code(200);	
-					}else {
-						res(Boom.unauthorized('Invalid password'));
-					}
-				});
+		User.findOne({username: req.payload.username}, (err, user) => {
+			// returns some non-sensitive informations about the user
+			// TODO: [2] Should alse set cookie with the jwt
+			res({
+				id: user.id,
+				role: ((user.admin) ? 'admin': 'user'),
+				username: user.username,
+				token: user.token,
+			}).code(200);
 		});
 	},
 };
