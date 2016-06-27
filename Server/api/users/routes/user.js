@@ -11,14 +11,20 @@ module.exports = [{
 	method: 'POST',
 	path: '/users/new',
 	config: {
-		auth: false,
+		// Validate the payload against the Joi schema
+		validate: {
+			payload: createUserSchema
+		},
 		// Before the route handler runs, verify that
 		// the user is unique and assign the result to 'user'
 		pre: [{
 			method: verifyUniqueUser,
 			assign: 'user'
 		}],
-		handler: (req, res) => {
+		// to register user does not need any authentication
+		auth: false,
+	},
+	handler: (req, res) => {
 
 			let user = new User();
 			user.email = req.payload.email;
@@ -37,13 +43,7 @@ module.exports = [{
 				}).code(201);
 			});
 		},
-
-		// Validate the payload against the Joi schema
-		validate: {
-			payload: createUserSchema
-		}
-	}
-}, {
+	}, {
 	/**
 	 * Update user by ID
 	 */
