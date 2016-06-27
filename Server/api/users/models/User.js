@@ -103,18 +103,14 @@ UserModel.methods = {
    */
   authenticate(password, callback) {
     if (!callback) {
-      return this.password === this.encryptPassword(password);
+      return bcrypt.compareSync(password, this.password);
     }
 
-    this.encryptPassword(password, (err, pwdGen) => {
+    bcrypt.compare(password, this.password, (err, res) =>{
       if (err) {
         return callback(err);
-      }
-
-      if (this.password === pwdGen) {
-        callback(null, true);
       } else {
-        callback(null, false);
+        callback(null, res)
       }
     });
   },
@@ -127,7 +123,7 @@ UserModel.methods = {
    * @return {String}
    * @api public
    */
-makeSalt(rounds, callback) {
+  makeSalt(rounds, callback) {
     var defaultRounds = 10;
     if (typeof arguments[0] === 'function') {
       callback = arguments[0];
