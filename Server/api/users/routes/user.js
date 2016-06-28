@@ -88,6 +88,24 @@ module.exports = [{
 	}
 },{
 	/**
+	 * Get all users or one user by id
+	 */
+	method: 'GET',
+	path: '/users/me',
+	config: {
+		auth: 'jwt'
+	},
+	handler: (req, res) => {
+		User.findById(req.Token.id, (err, user) =>{
+			if (err || !user) {
+				res(Boom.unauthorized('user not found'));
+			}else {
+				res(formatUser(user));
+			}
+		});
+	}
+},{
+	/**
 	 * Update user by ID
 	 */
 	method: 'DELETE',
