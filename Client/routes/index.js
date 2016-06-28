@@ -20,7 +20,7 @@ router.get('/register', function(req, res, next)
 router.get('/profile', function(req, res, next)
 {
   // temporarily redirect to login for now.
-  res.redirect('/login');
+  res.render('pages/profile');
 });
 
 module.exports = router;

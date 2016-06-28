@@ -1,7 +1,7 @@
 {
-  "name": "socket-chat",
+  "name": "weekly-dev-api",
   "version": "1.0.0",
-  "description": "A chat using sockets",
+  "description": "A RESTful api for interacting with the weekly dev databases",
   "main": "app.js",
   "scripts": {
     "test": "lol no",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maxemiliang/socket-chat.git"
+    "url": "git+https://github.com/weeklydev/weeklydev.io.git"
   },
   "author": "Maxemiliang contact@maxemiliang.me",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/maxemiliang/socket-chat/issues"
+    "url": "https://github.com/weeklydev/weeklydev.io/issues"
   },
-  "homepage": "https://github.com/maxemiliang/socket-chat#readme",
+  "homepage": "https://github.com/weeklydev/weeklydev.io#readme",
   "dependencies": {
     "bcrypt": "^0.8.7",
     "boom": "^3.2.1",
