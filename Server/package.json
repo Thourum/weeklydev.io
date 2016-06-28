@@ -27,6 +27,7 @@
     "hapi-auth-jwt2": "^7.0.1",
     "joi": "^8.4.1",
     "jsonwebtoken": "^7.0.0",
-    "mongoose": "^4.4.20"
+    "mongoose": "^4.4.20",
+    "nodemailer": "*"
   }
 }

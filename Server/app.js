@@ -12,7 +12,8 @@ const validate = require('./verify.js');
 
 // Setup hapi server
 server.connection({
-	port: process.env.PORT || 1337
+	port: process.env.PORT || 1337,
+	routes: {cors: true}
 });
 
 const dbUrl = 'mongodb://localhost:27017/WOIP-backend';
