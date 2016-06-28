@@ -6,6 +6,35 @@
   <body>
     <% include ../partials/nav %>
 
+<<<<<<< HEAD
+    <div class="row padded">
+      <div class="medium-8 medium-centered large-6 large-centered columns">
+
+        <form name="registration_form" data-abide novalidate>
+          <div class="row column register-form">
+            <h4 class="text-center">Create an account</h4>
+            <label>Email
+              <input name="email" type="email" placeholder="somebody@example.com" required>
+              <span class="form-error">Please enter a valid email address.</span>
+            </label>
+            <label>Password
+              <input name="password" type="password" placeholder="Password" required>
+              <span class="form-error">Please enter a password.</span>
+            </label>
+            <label>Confirm Password
+              <input name="password-confirm" type="password" placeholder="Password" data-equalto="password" required>
+              <span class="form-error">Please enter the same password as you did previously.</span>
+            </label>
+            <p><button class="button expanded">Register</button></p>
+            <p class="text-center"><a href="/login">Already have an account? Log in.</a></p>   
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <% include ../partials/scripts %>
+=======
     <app-main></app-main>
 
     <% include ../partials/scripts %>
@@ -20,4 +49,5 @@
     })
     </script>
   </body>
+>>>>>>> e44839d07a2f8b3e8839de3f11e8f01c24994d17
 </html>  

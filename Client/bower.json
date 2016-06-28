@@ -13,10 +13,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.5.6",
     "foundation-sites": "^6.2.3",
     "motion-ui": "^1.2.2",
-    "components-font-awesome": "^4.6.3",
-    "riot": "^2.4.1"
+    "components-font-awesome": "^4.6.3"
   }
 }
