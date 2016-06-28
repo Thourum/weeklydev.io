@@ -1,33 +1,22 @@
 var User = require('./api/users/models/User');
+var validateEmail = require('./methods/validateEmail');
 
 function jwtAuth (decoded, request, callback) {
   // do your checks to see if the person is valid
+  request.Token = decoded;
   return User.findById(decoded.id, function (err, user) {
-    if (err) {
-			callback(null, false);
-    } else {
+  	if (err) {
+  		callback(null,false)
+    }else{
     	callback(null, true);
-  	}
+    }
   });
 };
 
 
 function basicAuth (request, Username, password, callback) {
-	var mailPattern = new RegExp("@");
-	if (mailPattern.test(Username)) {
-		User.findOne({email: Username}, (err, user) => {
-			if (err) {
-				callback(err);
-			}
-			user.authenticate(password, (err, res) =>{
-				if (err){
-					callback(err);
-				}
-				callback(null,res,{ id: user._id, email: user.username })
-			});
-		});
-	}else {
-		User.findOne({username: Username}, (err, user) => {
+	if (!validateEmail(Username)) {
+		User.findOne({ username : Username}, (err, user) => {
 			if (err) {
 				callback(err);
 			}
@@ -36,6 +25,19 @@ function basicAuth (request, Username, password, callback) {
 					callback(err);
 				}
 				callback(null,res,{ id: user._id, username: user.username })
+			})
+		});
+	} else {
+		User.findOne({ email : Username}, (err, user) => {
+			if (err) {
+				callback(err);
+			}
+			user.authenticate(password, (err, res) =>{
+				if (err){
+					callback(err);
+				}
+				var credentials = { id: user._id, username: user.username };
+				callback(null,res,credentials);
 			})
 		});
 	}
