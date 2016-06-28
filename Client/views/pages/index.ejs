@@ -6,18 +6,28 @@
   <body>
     <% include ../partials/nav %>
 
-    <app-main></app-main>
+    <div class="row padded">
+      <div class="large-12 columns text-center">
+        <h1>Welcome to the home page!</h1>
+        <br>
+        <p>You should probably log in.</p>
+        <a href="/login" class="button">Login</a>
+      </div>
+    </div>
 
     <% include ../partials/scripts %>
+<<<<<<< HEAD
+=======
     <% include ../partials/riotimports %>
     <!-- Mount Riot App -->
     <script>
     riot.compile(function()
     {
-      riot.route.base('#')
+      riot.route.base('/')
       riot.mount('*')
       riot.route.start(true)
     })
     </script>
   </body>
+>>>>>>> e44839d07a2f8b3e8839de3f11e8f01c24994d17
 </html>  

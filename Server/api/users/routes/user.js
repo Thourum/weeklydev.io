@@ -83,6 +83,7 @@ module.exports = [{
 				if (err) return console.error(err);
 				res( user );
 			});
+
 		}
 		else {
 			User.find(function(err, users){
