@@ -3,7 +3,7 @@
 const Boom = require('boom');
 const User = require('../models/User');
 const createUserSchema = require('../schemas/createUser');
-const generateUUID = require('../util/userFunctions').generateUUID;
+const generateUUID = require('../../../methods/generateUUID');
 const verifyUniqueUser = require('../util/userFunctions').verifyUniqueUser;
 const createToken = require('../util/token');
 
@@ -54,7 +54,7 @@ module.exports = [{
 	method: 'PUT',
 	path: '/users/{id}',
 	config: {
-		auth: false
+		auth: 'jwt'
 	},
 	handler: (req, res) => {
 		var id = req.params.id;
@@ -75,7 +75,7 @@ module.exports = [{
 	method: 'GET',
 	path: '/users/{id?}',
 	config: {
-		auth: false
+		auth: 'jwt'
 	},
 	handler: (req, res) => {
 		if (req.params.id){
