@@ -3,6 +3,7 @@
 const Boom = require('boom');
 const User = require('../models/User');
 const createUserSchema = require('../schemas/createUser');
+const generateUUID = require('../../../methods/generateUUID');
 const verifyUniqueUser = require('../util/userFunctions').verifyUniqueUser;
 const createToken = require('../util/token');
 
@@ -11,46 +12,49 @@ module.exports = [{
 	method: 'POST',
 	path: '/users/new',
 	config: {
-		auth: false,
+		// Validate the payload against the Joi schema
+		validate: {
+			payload: createUserSchema
+		},
 		// Before the route handler runs, verify that
 		// the user is unique and assign the result to 'user'
 		pre: [{
 			method: verifyUniqueUser,
 			assign: 'user'
 		}],
-		handler: (req, res) => {
+		// to register user does not need any authentication
+		auth: false,
+	},
+	handler: (req, res) => {
 
 			let user = new User();
 			user.email = req.payload.email;
 			user.username = req.payload.username;
 			user.admin = false;
 			user.password = req.payload.password;
+			user.uuid = generateUUID();
 			user.token = createToken(user);
-			user.token_Expire.Expire = (Date.now() + (24 * 60 * 60));
+			// user.token_expire.expire = (Date.now() + (24 * 60 * 60));
 			user.save((err, user) => {
 				if (err) {
 					throw Boom.badRequest(err);
 				}
 				// If the user is saved successfully, Send a JWT
 				res({
-					id_token: user.token,
+					id: user._id,
+					username: user.username,
+					token: user.token,
 				}).code(201);
 			});
 		},
-
-		// Validate the payload against the Joi schema
-		validate: {
-			payload: createUserSchema
-		}
-	}
-}, {
+	}, {
 	/**
 	 * Update user by ID
 	 */
 	method: 'PUT',
 	path: '/users/{id}',
 	config: {
-		auth: false
+		auth: 'jwt'
 	},
 	handler: (req, res) => {
 		var id = req.params.id;
@@ -71,7 +75,7 @@ module.exports = [{
 	method: 'GET',
 	path: '/users/{id?}',
 	config: {
-		auth: false
+		auth: 'jwt'
 	},
 	handler: (req, res) => {
 		if (req.params.id){
@@ -87,5 +91,28 @@ module.exports = [{
 				res( users );
 			});
 		};
+	}
+},{
+	/**
+	 * Update user by ID
+	 */
+	method: 'DELETE',
+	path: '/users/{id}',
+	config: {
+		auth: false
+	},
+	handler: (req, res) => {
+		var id = req.params.id;
+		User.findByIdAndRemove(id, (err, user) => {
+			if (err) {
+				console.error(err);
+				res(Boom.wrap(err, 400));
+			}
+			if (user) {
+				res().code(200);
+			}else{
+				res(Boom.notFound('User not found'));
+			}
+		});
 	}
 }];

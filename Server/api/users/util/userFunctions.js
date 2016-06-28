@@ -3,6 +3,8 @@
 const Boom = require('boom');
 const User = require('../models/User');
 const createToken = require('./token');
+const validateEmail = require('../../../methods/validateEmail');
+const generateUUID = require('../../../methods/generateUUID');
 
 function verifyUniqueUser(req, res) {
 	// Find an entry from the database that
@@ -29,40 +31,28 @@ function verifyUniqueUser(req, res) {
 		res(req.payload);
 	});
 }
+
 function authenticateUser(req, res) {
-	if (req.payload.token) {
-		User.findOne({token: req.payload.token}, (err, user) =>{
+	// TODO: [1] remove all of this shit and rewrite it all
+	User.findById(req.Credentials.id, (err, user) => {
+		if (err) {
+			console.error(err);
+			res(Boom.wrap(err, 400));
+		}
+		if (!user) {
+			res(Boom.badRequest('User not found!'));
+			return;
+		}
+		user.token_uuid = generateUUID();
+		user.save((err, user)=>{
 			if (err) {
-				res(Boom.badRequest('Invalid token'));
+				console.log('-- Something went wrong:');
+				console.log(err);
+				res(Boom.wrap(Boom.create(500, 'Internal Server Error', { timestamp: Date.now() })));
 			}
-			if (user.token_Expire.Expire >= Date.now()) {
-				res(Boom.unauthorized('Token expired'))
-			}
-			// refresh token and send a new one
-			var newToken = createToken(user);
-			user.token = newToken;
-			user.token_Expire.set = Date.now();
-			user.token_Expire.Expire = (Date.now() + 24 * 60 * 60);
-			user.save((err,user) => {
-				if (err) {
-					console.log('something went wrong');
-					console.log(err);
-					res(Boom.wrap(Boom.create(500, 'Internal Server Error', { timestamp: Date.now() })));
-				}
-				res({
-					id_token: user.token // send new token
-				});
-			})
-		});
-	}else{
-		User.findOne({username: req.payload.username}, (err, user) => {
-			if (err) {
-				res(Boom.badRequest('Incorrect username'));
-			}
-			// NOTE: this should catch if username is incorrect so later on we can count on that the username is corret however some error may still apear
 			res(req.payload);
-		});
-	}
+		})
+	});
 }
 
 module.exports = {

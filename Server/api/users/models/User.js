@@ -27,10 +27,14 @@ const UserModel = new Schema({
 		type: Boolean,
 		required: true
 	},
-	team_id: {
+	team: [{
 		type: Schema.Types.ObjectId,
 		required: false
-	},
+	}],
+  project:[{
+    type: Schema.Types.ObjectId,
+    required: false
+  }],
 	survey_id: {
 		type: Schema.Types.ObjectId,
 		required: false
@@ -45,9 +49,10 @@ const UserModel = new Schema({
 		default: Date.now
 	},
   token: String,
-  token_Expire: {
-    Set: {type: Date, default: Date.now },
-    Expire: Date,
+  token_uuid: String,
+  token_expire: {
+    set: {type: Date, default: Date.now },
+    expire: Date,
   },
   salt: String,
 });
@@ -102,18 +107,14 @@ UserModel.methods = {
    */
   authenticate(password, callback) {
     if (!callback) {
-      return this.password === this.encryptPassword(password);
+      return bcrypt.compareSync(password, this.password);
     }
 
-    this.encryptPassword(password, (err, pwdGen) => {
+    bcrypt.compare(password, this.password, (err, res) =>{
       if (err) {
         return callback(err);
-      }
-
-      if (this.password === pwdGen) {
-        callback(null, true);
       } else {
-        callback(null, false);
+        callback(null, res)
       }
     });
   },
@@ -126,7 +127,7 @@ UserModel.methods = {
    * @return {String}
    * @api public
    */
-makeSalt(rounds, callback) {
+  makeSalt(rounds, callback) {
     var defaultRounds = 10;
     if (typeof arguments[0] === 'function') {
       callback = arguments[0];
