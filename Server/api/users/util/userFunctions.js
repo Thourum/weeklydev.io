@@ -55,7 +55,21 @@ function authenticateUser(req, res) {
 	});
 }
 
+function userModel(user) {
+	let obj = {
+		id: user.id,
+		email: user.email,
+		username: user.username,
+		admin: user.admin,
+		team: user.team,
+		project: user.project,
+		token: user.token
+	}
+	return obj;
+}
+
 module.exports = {
 	verifyUniqueUser: verifyUniqueUser,
 	authenticateUser: authenticateUser,
+	formatUser: userModel,
 }
