@@ -4,6 +4,7 @@ const Boom = require('boom');
 const User = require('../models/User');
 const createUserSchema = require('../schemas/createUser');
 const generateUUID = require('../../../methods/generateUUID');
+const formatUser = require('../util/userFunctions').formatUser;
 const verifyUniqueUser = require('../util/userFunctions').verifyUniqueUser;
 const createToken = require('../util/token');
 
@@ -39,11 +40,7 @@ module.exports = [{
 				throw Boom.badRequest(err);
 			}
 			// If the user is saved successfully, Send a JWT
-			res({
-				id: user._id,
-				username: user.username,
-				token: user.token,
-			}).code(201);
+			res(formatUser(user)).code(201);
 		});
 		},
 	}, {
@@ -56,15 +53,14 @@ module.exports = [{
 		auth: 'jwt'
 	},
 	handler: (req, res) => {
-		var id = req.params.id;
-		User.findByIdAndUpdate(id, { $set: {
+		User.findByIdAndUpdate(req.params.id, { $set: {
 			username: req.payload.username,
 			email: req.payload.email,
 			admin: req.payload.admin,
 			password: req.payload.password
 			}}, function (err, user) {
 			if (err) return console.error(err);
-			res( user );
+			res( formatUser(user) );
 		});
 	}
 }, {
@@ -80,13 +76,13 @@ module.exports = [{
 		if (req.params.id){
 			User.findById(req.params.id, function (err, user) {
 				if (err) return console.error(err);
-				res( user );
+				res( formatUser(user) ).code(200);
 			});
 		}
 		else {
 			User.find(function(err, users){
 				if (err) return console.error(err);
-				res( users );
+				res( users ).code(200);
 			});
 		};
 	}
@@ -100,14 +96,13 @@ module.exports = [{
 		auth: false
 	},
 	handler: (req, res) => {
-		var id = req.params.id;
-		User.findByIdAndRemove(id, (err, user) => {
+		User.findByIdAndRemove(req.params.id, (err, user) => {
 			if (err) {
 				console.error(err);
 				res(Boom.wrap(err, 400));
 			}
 			if (user) {
-				res().code(200);
+				res(formatUser(user)).code(200);
 			}else{
 				res(Boom.notFound('User not found'));
 			}

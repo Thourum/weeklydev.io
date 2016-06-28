@@ -2,6 +2,7 @@
 
 const User = require('../models/User');
 const authenticateUser = require('../util/userFunctions').authenticateUser;
+const formatUser = require('../util/userFunctions').formatUser;
 const createToken = require('../util/token');
 const Boom = require('boom');
 
@@ -27,12 +28,7 @@ module.exports = {
 			if (!user) {
 				res(Boom.unauthorized('user not found'));
 			}
-			res({
-				id: user.id,
-				role: ((user.admin) ? 'admin': 'user'),
-				username: user.username,
-				token: user.token,
-			}).code(200);
+			res(formatUser(user)).code(200);
 		});
 	},
 };
