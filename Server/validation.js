@@ -20,9 +20,11 @@ function basicAuth (request, Username, password, callback) {
 		User.findOne({ username : Username}, (err, user) => {
 			if (err) {
 				callback(err);
+				return
 			}
 			if (!user) {
 				callback(Boom.unauthorized('user not found'));
+				return
 			}
 			user.authenticate(password, (err, res) =>{
 				if (err){
@@ -35,9 +37,11 @@ function basicAuth (request, Username, password, callback) {
 		User.findOne({ email : Username}, (err, user) => {
 			if (err) {
 				callback(err);
+				return
 			}
 			if (!user) {
 				callback(Boom.unauthorized('user not found'));
+				return
 			}
 			user.authenticate(password, (err, res) =>{
 				if (err){
