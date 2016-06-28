@@ -1,26 +1,40 @@
 var express = require('express');
+var request = require('request'); // HTTP request library
 var router = express.Router();
 
-// GET /
+// authentication check middleware
+// sets req.auth = true if we have a token.
+router.get('/*', function(req, res, next)
+{
+  if (req.cookies.weeklydev_auth_token && req.cookies.weeklydev_auth_token != 'undefined')
+  {
+    req.auth = true;
+    req.token = req.cookies.weeklydev_auth_token;
+  }
+  else
+  {
+    req.auth = false;
+  }
+
+  next();
+})
+
+// GET
 router.get('/', function(req, res, next)
 {
   res.render('pages/index');
 });
 
-router.get('/login', function(req, res, next)
-{
-  res.render('pages/login');
-});
-
-router.get('/register', function(req, res, next)
-{
-  res.render('pages/register');
-});
-
 router.get('/profile', function(req, res, next)
 {
-  // temporarily redirect to login for now.
-  res.render('pages/profile');
+  if(req.auth)
+  {
+    res.render('pages/profile', {token: req.token});
+  }
+  else
+  {
+    res.redirect('/login');
+  }
 });
 
 module.exports = router;
