@@ -3,23 +3,26 @@
 const jwt = require('jsonwebtoken');
 const secret = require('../../../config');
 
-function createToken(user) {
-	let scopes;
+function createToken(user, expires) {
+	let scopes = 'user';
 	// Check if the user object passed in
 	// has admin set to true, and if so, set
 	// scopes to admin
 	if (user.admin) {
 		scopes = 'admin';
 	}
+
+	expires = expires || '24H';
+
 	// Sign the JWT
 	return jwt.sign({
 		id: user._id,
+		uuid: user.token_uuid,
 		username: user.username,
 		scope: scopes,
-		random: user.makeSalt(Math.floor(Math.random() * (99 - 10) + 10)).toString('Base64') // a bit of randomization // TODO: should be more random then this...
 	}, secret, {
 		algorithm: 'HS256',
-		expiresIn: "24h"
+		expiresIn: expires // exp: in 24H
 	});
 }
 

@@ -6,14 +6,14 @@ const Schema = mongoose.Schema;
 
 const SurveyModel = new Schema({
 	user_id: {
-		type: ObjectId,
+		type: Schema.Types.ObjectId,
 		required: true
 	},
 	preferred_role: {
 		type: String,
 		required: true
-	}
-	willing_project_manager: {
+	},
+	project_manager: {
 		type: Boolean,
 		required: true
 	},
@@ -30,5 +30,7 @@ const SurveyModel = new Schema({
 		required: true
 	}
 });
+
+// TODO: move all the check in route to pre
 
 module.exports = mongoose.model('Survey', SurveyModel, 'survey');
