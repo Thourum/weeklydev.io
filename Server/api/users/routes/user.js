@@ -26,26 +26,25 @@ module.exports = [{
 		auth: false,
 	},
 	handler: (req, res) => {
-
-			let user = new User();
-			user.email = req.payload.email;
-			user.username = req.payload.username;
-			user.admin = false;
-			user.password = req.payload.password;
-			user.uuid = generateUUID();
-			user.token = createToken(user);
-			// user.token_expire.expire = (Date.now() + (24 * 60 * 60));
-			user.save((err, user) => {
-				if (err) {
-					throw Boom.badRequest(err);
-				}
-				// If the user is saved successfully, Send a JWT
-				res({
-					id: user._id,
-					username: user.username,
-					token: user.token,
-				}).code(201);
-			});
+		let user = new User();
+		user.email = req.payload.email;
+		user.username = req.payload.username;
+		user.admin = false;
+		user.password = req.payload.password;
+		user.uuid = generateUUID();
+		user.token = createToken(user);
+		// user.token_expire.expire = (Date.now() + (24 * 60 * 60));
+		user.save((err, user) => {
+			if (err) {
+				throw Boom.badRequest(err);
+			}
+			// If the user is saved successfully, Send a JWT
+			res({
+				id: user._id,
+				username: user.username,
+				token: user.token,
+			}).code(201);
+		});
 		},
 	}, {
 	/**

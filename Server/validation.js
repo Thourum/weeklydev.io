@@ -1,5 +1,6 @@
 var User = require('./api/users/models/User');
 var validateEmail = require('./methods/validateEmail');
+var Boom = require('boom');
 
 function jwtAuth (decoded, request, callback) {
   // do your checks to see if the person is valid
@@ -20,6 +21,9 @@ function basicAuth (request, Username, password, callback) {
 			if (err) {
 				callback(err);
 			}
+			if (!user) {
+				res(Boom.unauthorized('user not found'));
+			}
 			user.authenticate(password, (err, res) =>{
 				if (err){
 					callback(err);
@@ -31,6 +35,9 @@ function basicAuth (request, Username, password, callback) {
 		User.findOne({ email : Username}, (err, user) => {
 			if (err) {
 				callback(err);
+			}
+			if (!user) {
+				res(Boom.unauthorized('user not found'));
 			}
 			user.authenticate(password, (err, res) =>{
 				if (err){
