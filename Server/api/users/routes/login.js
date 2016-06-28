@@ -22,11 +22,9 @@ module.exports = {
 			// returns some non-sensitive informations about the user
 			// TODO: [2] Should alse set cookie with the jwt
 			if (err) {
-				// TODO: Implement errors
 				res(Boom.unauthorized('user not found'));
 			}
 			if (!user) {
-				// TODO: Implement Errors
 				res(Boom.unauthorized('user not found'));
 			}
 			res({

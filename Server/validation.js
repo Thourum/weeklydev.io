@@ -22,7 +22,7 @@ function basicAuth (request, Username, password, callback) {
 				callback(err);
 			}
 			if (!user) {
-				res(Boom.unauthorized('user not found'));
+				callback(Boom.unauthorized('user not found'));
 			}
 			user.authenticate(password, (err, res) =>{
 				if (err){
@@ -37,7 +37,7 @@ function basicAuth (request, Username, password, callback) {
 				callback(err);
 			}
 			if (!user) {
-				res(Boom.unauthorized('user not found'));
+				callback(Boom.unauthorized('user not found'));
 			}
 			user.authenticate(password, (err, res) =>{
 				if (err){
