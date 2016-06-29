@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var tokenCookieAuthentication = require('./middleware/token-cookie-authentication');
 
 var routes = require('./routes/index');
 var auth = require('./routes/auth');
@@ -20,6 +21,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(tokenCookieAuthentication()); // token-cookie-authentication middlware.
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);

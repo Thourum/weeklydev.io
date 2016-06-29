@@ -1,23 +1,7 @@
 var express = require('express');
 var request = require('request'); // HTTP request library
+var app = express();
 var router = express.Router();
-
-// authentication check middleware
-// sets req.auth = true if we have a token.
-router.get('/*', function(req, res, next)
-{
-  if (req.cookies.weeklydev_auth_token && req.cookies.weeklydev_auth_token != 'undefined')
-  {
-    req.auth = true;
-    req.token = req.cookies.weeklydev_auth_token;
-  }
-  else
-  {
-    req.auth = false;
-  }
-
-  next();
-})
 
 // GET
 router.get('/', function(req, res, next)
@@ -27,9 +11,9 @@ router.get('/', function(req, res, next)
 
 router.get('/profile', function(req, res, next)
 {
-  if(req.auth)
+  if(res.locals.auth)
   {
-    res.render('pages/profile', {token: req.token});
+    res.render('pages/profile');
   }
   else
   {
