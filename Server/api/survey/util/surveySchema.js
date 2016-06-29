@@ -8,7 +8,6 @@ module.exports = (req, res) => {
 		if (err) {
 			res(Boom.badRequest('Invalid query'));
 		}
-		console.log(survey);
 		if (!survey || !survey == null) {
 			res(req.payload);
 			return;
