@@ -10,9 +10,16 @@
     <div class="row padded">
       <div class="medium-8 medium-centered large-6 large-centered columns">
 
-        <form method="post" action="/login" name="login_form" data-abide novalidate>
+        <form method="post" name="login_form" data-abide novalidate>
           <div class="row column log-in-form">
             <h4 class="text-center">Log in with your email account</h4>
+
+            <% if (locals.error) { %>
+              <div class="error">
+                <p><%= error %></p>
+              </div>
+            <% } %>
+
             <label>Email
               <input name="email" type="email" placeholder="somebody@example.com" required>
               <span class="form-error">Please enter a valid email address.</span>
@@ -22,7 +29,7 @@
               <span class="form-error">Please enter a password.</span>
             </label>
             <p><button type="submit" class="button expanded">Log In</button></p>
-            <p class="text-center"><a href="/register">Don't have an account? Register.</a></p>   
+            <p class="text-center"><a href="/auth/register">Don't have an account? Register.</a></p>   
           </div>
         </form>
 
