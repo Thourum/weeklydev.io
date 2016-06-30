@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var $    = require('gulp-load-plugins')();
+var $ = require('gulp-load-plugins')();
 
 var sassPaths = [
   'public/components/foundation-sites/scss',
@@ -7,11 +7,11 @@ var sassPaths = [
   'public/components/components-font-awesome/scss'
 ];
 
-gulp.task('sass', function() {
+gulp.task('sass', function () {
   return gulp.src('public/scss/app.scss')
     .pipe($.sass({
-      includePaths: sassPaths,
-      //outputStyle: 'compressed'
+      includePaths: sassPaths
+      // outputStyle: 'compressed'
     })
       .on('error', $.sass.logError))
     .pipe($.autoprefixer({
@@ -20,6 +20,6 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('public/css'));
 });
 
-gulp.task('default', ['sass'], function() {
+gulp.task('default', ['sass'], function () {
   gulp.watch(['public/scss/**/*.scss'], ['sass']);
 });
