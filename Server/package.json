@@ -4,7 +4,7 @@
   "description": "A RESTful api for interacting with the weekly dev databases",
   "main": "app.js",
   "scripts": {
-    "test": "mocha tests/*/*-test.js",
+    "test": "mocha tests/test.js",
     "start": "node app.js"
   },
   "repository": {
@@ -33,6 +33,6 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
-    "mocha": "^2.5.3"
+    "mocha": "^2.5.3",
   }
 }
