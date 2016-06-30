@@ -1,5 +1,5 @@
 'use strict';
 
-const key = "MememememmememexkådkksokfopsekfskfdfpkapkdapwkdpakdpokpokkkKPOKPOKPKkPOkPkpkPkpkPOkPOkPkPkkpkpkpKpOKpOKPOKPkPokPkpKpkPkppkmememems";
+const key = 'MememememmememexkådkksokfopsekfskfdfpkapkdapwkdpakdpokpokkkKPOKPOKPKkPOkPkpkPkpkPOkPOkPkPkkpkpkpKpOKpOKPOKPkPokPkpKpkPkppkmememems';
 
 module.exports = key;
