@@ -64,3 +64,5 @@ server.start((err) => {
     }
   });
 });
+
+module.exports = server;

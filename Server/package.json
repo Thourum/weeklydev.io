@@ -4,7 +4,7 @@
   "description": "A RESTful api for interacting with the weekly dev databases",
   "main": "app.js",
   "scripts": {
-    "test": "mocha tests/*/*-test.js",
+    "test": "mocha tests/**/*.js",
     "start": "node app.js"
   },
   "repository": {
