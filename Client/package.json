@@ -28,6 +28,12 @@
     "type": "git",
     "url": "git+https://github.com/WebDev-Weekly/weekly-dev-site.git"
   },
+  "semistandard": {
+    "ignore": [
+      "/node_modules/",
+      "/public/components/"
+    ]
+  },
   "author": "RCady, omegadeep10, joerob2468",
   "license": "ISC",
   "bugs": {

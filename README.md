@@ -1,3 +1,5 @@
+[![js-semistandard-style](https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg?style=flat-square)](https://github.com/Flet/semistandard)
+
 # WeeklyDev.io
 This is the source to the WeeklyDev.io API and Member's Panel Frontend
 

@@ -1,22 +1,16 @@
 var express = require('express');
-var request = require('request'); // HTTP request library
-var app = express();
+// var request = require('request'); // HTTP request library
 var router = express.Router();
 
 // GET
-router.get('/', function(req, res, next)
-{
+router.get('/', function (req, res, next) {
   res.render('pages/index');
 });
 
-router.get('/profile', function(req, res, next)
-{
-  if(res.locals.auth)
-  {
+router.get('/profile', function (req, res, next) {
+  if (res.locals.auth) {
     res.render('pages/profile');
-  }
-  else
-  {
+  } else {
     res.redirect('/auth/login?url=/profile');
   }
 });
