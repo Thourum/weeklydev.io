@@ -4,7 +4,11 @@ var router = express.Router();
 
 // GET
 router.get('/', function (req, res, next) {
-  res.render('pages/index');
+  if (res.locals.auth) {
+    res.render('pages/profile');
+  } else {
+    res.redirect('/auth/login?url=/profile');
+  }
 });
 
 module.exports = router;
