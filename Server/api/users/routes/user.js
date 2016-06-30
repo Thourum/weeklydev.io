@@ -83,7 +83,15 @@ module.exports = [{
 		else {
 			User.find(function(err, users){
 				if (err) return console.error(err);
-				res( users ).code(200);
+				if (req.Token.scope == 'admin') {
+					res( users ).code(200);
+				}else{
+					var Users = [];
+					users.forEach((user)=>{
+						Users.push(formatUser(user));
+					});
+					res(Users)
+				}
 			});
 		};
 	}
