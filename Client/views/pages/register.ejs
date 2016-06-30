@@ -10,15 +10,19 @@
     <div class="row padded">
       <div class="medium-8 medium-centered large-6 large-centered columns">
 
-        <form name="registration_form" data-abide novalidate>
+        <form method="post" name="registration_form" data-abide novalidate>
           <div class="row column register-form">
             <h4 class="text-center">Create an account</h4>
             <label>Email
               <input name="email" type="email" placeholder="somebody@example.com" required>
               <span class="form-error">Please enter a valid email address.</span>
             </label>
+            <label>Username
+              <input name="username" type="text" pattern="username" required>
+              <span class="form-error">Please enter a valid username.<br>A username can only contain alphanumeric characters, dashes, and underscores.</span>
+            </label>
             <label>Password
-              <input name="password" type="password" placeholder="Password" required>
+              <input id="password" name="password" type="password" placeholder="Password" required>
               <span class="form-error">Please enter a password.</span>
             </label>
             <label>Confirm Password

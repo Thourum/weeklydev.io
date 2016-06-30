@@ -19,19 +19,20 @@ router.get('/logout', function (req, res, next) {
 
 // POST
 
+// User Login
 router.post('/login', function (req, res, next) {
-  var username = req.body.email;
+  var email = req.body.email;
   var password = req.body.password;
 
-  if (!username || !password) {
-    res.render('pages/login', {error: 'Please enter both a username and a password'});
+  if (!email || !password) {
+    res.render('pages/login', {error: 'Please enter both an email and a password'});
   }
 
   // API HTTP request options
   var requestOptions = {
     url: 'http://localhost:1337/login',
     headers: {
-      'Authorization': 'Basic ' + (new Buffer(username + ':' + password).toString('base64'))
+      'Authorization': 'Basic ' + (new Buffer(email.toLowerCase() + ':' + password).toString('base64'))
     }
   };
 
@@ -51,6 +52,52 @@ router.post('/login', function (req, res, next) {
     if (jsonBody.error) {
       console.log('Login error - ' + jsonBody.message);
       res.render('pages/login', { error: 'Invalid email or password.' });
+      return;
+    }
+
+    // set token cookie. Lasts for 24 hours.
+    res.cookie('weeklydev_auth_token', jsonBody.token, {maxAge: 24 * 60 * 60});
+
+    if (req.params.url) {
+      res.redirect(req.params.url);
+    } else {
+      res.redirect('/profile');
+    }
+  });
+});
+
+// User Registration
+router.post('/register', function (req, res, next) {
+  var email = req.body.email;
+  var username = req.body.username;
+  var password = req.body.password;
+
+  if (!email || !username || !password) {
+    res.render('pages/register', {error: 'Please fill out all required fields'});
+  }
+
+  // API HTTP request options
+  var requestOptions = {
+    url: 'http://localhost:1337/users/new',
+    form: {email: email.toLowerCase(), username: username, password: password}
+  };
+
+  // send request to API
+  request.post(requestOptions, function (error, response, body) {
+    // if there are database errors, send an error message.
+    if (error) {
+      console.log('/auth/register error - ' + error.Error);
+      res.render('pages/register', {error: "Couldn't connect to the database. Please contact a system administrator."});
+      return;
+    }
+
+    // parse body for easier value retrieval.
+    var jsonBody = JSON.parse(body);
+
+    // if we got a registration error from the API, log that message.
+    if (jsonBody.error) {
+      console.log('/auth/register error - ' + jsonBody.message);
+      res.render('pages/register', { error: jsonBody.message });
       return;
     }
 
