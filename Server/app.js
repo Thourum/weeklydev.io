@@ -20,7 +20,7 @@ server.connection({
 const dbUrl = 'mongodb://localhost:27017/WOIP-backend';
 
 // Register the jwt auth plugin
-server.register([require('hapi-auth-jwt2'),require('hapi-auth-basic')], (err) => {
+server.register([require('hapi-auth-jwt2'),require('hapi-auth-basic-weeklydev-login')], (err) => {
 
 	server.auth.strategy('jwt', 'jwt',{
 		key: secret,          		// Never Share your secret key
