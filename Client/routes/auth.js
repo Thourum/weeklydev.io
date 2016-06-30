@@ -13,7 +13,7 @@ router.get('/register', function (req, res, next) {
 
 router.get('/logout', function (req, res, next) {
   // to logout, clear the cookie and redirect to home.
-  res.clearCookie('weeklydev_auth_token');
+  req.session.destroy();
   res.redirect('/');
 });
 
@@ -55,8 +55,8 @@ router.post('/login', function (req, res, next) {
       return;
     }
 
-    // set token cookie. Lasts for 24 hours.
-    res.cookie('weeklydev_auth_token', jsonBody.token, {maxAge: 24 * 60 * 60});
+    // set the session.
+    req.session.user = {logged_in: true, id: jsonBody.id, token: jsonBody.token, username: jsonBody.username};
 
     if (req.params.url) {
       res.redirect(req.params.url);
@@ -101,14 +101,8 @@ router.post('/register', function (req, res, next) {
       return;
     }
 
-    // set token cookie. Lasts for 24 hours.
-    res.cookie('weeklydev_auth_token', jsonBody.token, {maxAge: 24 * 60 * 60});
-
-    if (req.params.url) {
-      res.redirect(req.params.url);
-    } else {
-      res.redirect('/profile');
-    }
+    // registration was successful - now redirect to login.
+    res.redirect('/auth/login');
   });
 });
 
