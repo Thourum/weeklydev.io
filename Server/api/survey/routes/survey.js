@@ -52,7 +52,7 @@ module.exports = [{
       project_manager: payload.projectManager,
       skill_level: ((payload.skill >= 1 && payload.skill <= 5) ? payload.skill : 1),
       project_size: ((payload.size >= 5 && payload.size <= 20) ? payload.size : 5),
-      timezone: ((payload.timezone >= 0 && payload.timezone <= 24) ? payload.timezone : 12)
+      timezone: ((payload.timezone >= -12 && payload.timezone <= 12) ? payload.timezone : 0)
     }, (err, survey) => {
       if (err) {
         res(Boom.badRequest(err));
