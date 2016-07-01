@@ -13,6 +13,19 @@
         <form method="post" name="profile_edit_form" data-abide novalidate>
           <div class="row column profile-edit-form">
             <h4 class="text-center">Edit Your Profile</h4>
+
+            <% if (locals.error) { %>
+              <div class="error">
+                <p><%= error %></p>
+              </div>
+            <% } %>
+
+            <% if (locals.message) { %>
+              <div class="message">
+                <p><%= message %></p>
+              </div>
+            <% } %>
+
             <label>Preferred Role
               <select id="role" name="role" required>
                 <option value="">Choose a development position...</option>
@@ -33,7 +46,7 @@
               <span class="form-error">Please choose a skill level.</span>
             </label>
             <label>Preferred Team Size
-              <select id="skill" name="skill" required>
+              <select id="size" name="size" required>
                 <option value="">Choose a team size...</option>
                 <option value="5">Small</option>
                 <option value="10">Medium</option>
@@ -54,7 +67,7 @@
             </label>
             <label>Are you willing to be a project manager? Come on, it'll be fun!
               <div class="switch">
-                <input class="switch-input" id="project-manager" name="project-manager" type="checkbox" checked>
+                <input class="switch-input" id="project-manager" name="projectmanager" type="checkbox" value="true" checked>
                 <label class="switch-paddle" for="project-manager">
                   <span class="show-for-sr">Willing to be project manager.</span>
                   <span class="switch-active" aria-hidden="true">Yes</span>

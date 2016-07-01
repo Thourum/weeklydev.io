@@ -102,7 +102,7 @@ module.exports = [{
     survey.project_manager = payload.projectManager;
     survey.skill_level = ((payload.skill >= 1 && payload.skill <= 5) ? payload.skill : 1);
     survey.project_size = ((payload.size >= 5 && payload.size <= 20) ? payload.size : 5);
-    survey.timezone = ((payload.timezone >= 0 && payload.timezone <= 24) ? payload.timezone : 12);
+    survey.timezone = ((payload.timezone >= -12 && payload.timezone <= 12) ? payload.timezone : 0);
     survey.save((err, survey) => {
       if (err) {
         throw Boom.badRequest(err);
