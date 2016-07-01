@@ -6,6 +6,6 @@ module.exports = (Roles) => {
   if (validRoles.indexOf(Roles.toLowerCase())) {
     return Roles;
   } else {
-    return '';
+    return Roles;
   }
 };

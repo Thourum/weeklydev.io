@@ -62,7 +62,7 @@ router.post('/settings', function (req, res, next) {
     }
 
     // Settings update was successful.
-    res.redirect('/profile/settings', {message: 'Successfully update settings.'});
+    res.redirect('/profile');
   });
 });
 

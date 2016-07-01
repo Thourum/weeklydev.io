@@ -31,7 +31,7 @@ app.use(session({
   cookie: {
     secure: false,
     httpOnly: true,
-    maxAge: 60 * 60 * 24 // set max age to 24 hours.
+    maxAge: 1000 * 60 * 60 * 24 // set max age to 24 hours.
   }
 }));
 
