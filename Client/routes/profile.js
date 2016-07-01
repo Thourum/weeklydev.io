@@ -13,4 +13,8 @@ router.get('/', function (req, res, next) {
   res.render('pages/profile', {username: req.session.user.username});
 });
 
+router.get('/settings', function (req, res, next) {
+  res.render('pages/profile-settings', {username: req.session.user.username});
+});
+
 module.exports = router;
