@@ -31,8 +31,9 @@ module.exports = [{
     user.username = req.payload.username;
     user.admin = false;
     user.password = req.payload.password;
-    user.uuid = generateUUID();
-    user.token = createToken(user);
+    user.token.uuid = generateUUID();
+    user.token.full = createToken(user);
+    user.token.valid = true;
     // user.token_expire.expire = (Date.now() + (24 * 60 * 60))
     user.save((err, user) => {
       if (err) {

@@ -43,7 +43,7 @@ function authenticateUser (req, res) {
       res(Boom.badRequest('User not found!'));
       return;
     }
-    user.token_uuid = generateUUID();
+    user.token.uuid = generateUUID();
     user.save((err, user) => {
       if (err) {
         console.log('-- Something went wrong:');
@@ -65,7 +65,7 @@ function userModel (user) {
     admin: user.admin,
     team: user.team,
     project: user.project,
-    token: user.token
+    token: user.token.full
   };
   return obj;
 }

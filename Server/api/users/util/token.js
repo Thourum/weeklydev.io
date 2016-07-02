@@ -17,8 +17,7 @@ function createToken (user, expires) {
   // Sign the JWT
   return jwt.sign({
     id: user._id,
-    uuid: user.token_uuid,
-    username: user.username,
+    uuid: user.token.uuid,
     scope: scopes
   }, secret, {
     algorithm: 'HS256',

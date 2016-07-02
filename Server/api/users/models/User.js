@@ -48,14 +48,10 @@ const UserModel = new Schema({
     type: Date,
     default: Date.now
   },
-  token: String,
-  token_uuid: String,
-  token_expire: {
-    set: {
-      type: Date,
-      default: Date.now
-    },
-    expire: Date
+  token: {
+    full: String,
+    uuid: String,
+    valid: Boolean
   },
   salt: String
 });
