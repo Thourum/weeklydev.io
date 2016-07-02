@@ -4,12 +4,23 @@ var Boom = require('boom');
 
 function jwtAuth (decoded, request, callback) {
   // do your checks to see if the person is valid
+  if (decoded.exp >= Date.now()) {
+    callback('Token Expired', false);
+  }
   request.Token = decoded;
   return User.findById(decoded.id, function (err, user) {
-    if (err) {
+    if (err || !user) {
       callback(null, false);
-    } else {
-      callback(null, true);
+    }else {
+      if (!user.token.valid) {
+        callback(null, false);
+      } else {
+        if (decoded.uuid !== user.token.uuid) {
+          callback(null, false);
+        }else {
+          callback(null, true);
+        }
+      }
     }
   });
 }
