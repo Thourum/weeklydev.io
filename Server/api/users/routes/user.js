@@ -120,19 +120,23 @@ module.exports = [{
   method: 'DELETE',
   path: '/users/{id}',
   config: {
-    auth: false
+    auth: 'jwt'
   },
   handler: (req, res) => {
-    User.findByIdAndRemove(req.params.id, (err, user) => {
-      if (err) {
-        console.error(err);
-        res(Boom.wrap(err, 400));
-      }
-      if (user) {
-        res(formatUser(user)).code(200);
-      } else {
-        res(Boom.notFound('User not found'));
-      }
-    });
+    if (req.Token.id === req.params.id || req.Token.scope === 'admin') {
+      User.findByIdAndRemove(req.params.id, (err, user) => {
+        if (err) {
+          console.error(err);
+          res(Boom.wrap(err, 400));
+        }
+        if (user) {
+          res(formatUser(user)).code(200);
+        } else {
+          res(Boom.notFound('User not found'));
+        }
+      });
+    } else {
+      res(Boom.unauthorized('you cannot delete account that is not yours'));
+    }
   }
 }];
