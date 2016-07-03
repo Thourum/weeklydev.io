@@ -12,13 +12,22 @@ To compile stylesheets, run `npm run watch`.
 
 Finally, to start the server and view the application, run `npm start` and visit http://localhost:3000/
 
+# Installation (with Docker)
+
+* Pull this repository: `$ git clone https://github.com/weeklydev/weeklydev.io.git`
+* Install docker: https://www.docker.com/
+* Run `$ docker-compose up --build` (where **`--build`** will rebuild changes)
+
+The application is up and running
+- `Client`  => http://localhost:3000
+- `Server`  => http://localhost:1337
 
 ## Overall Goals
 
 - Create a well-designed and functional landing page that clearly explains our vision of a place where developers can collaborate and interact with each other fluidly just by signing up.
 - Create a blog/news/updates page to quickly present any changes or topics we wish to discuss.
 - Integrate login with Reddit, & GitHub
-- Provide a simple sign-up form w/ Questionnaire that allows developers to quickly and easily sign up to be on a team. 
+- Provide a simple sign-up form w/ Questionnaire that allows developers to quickly and easily sign up to be on a team.
 - Automate team generation based on Questionnaire results
 - Have a place to present completed projects and allow users to vote on those projects.
 

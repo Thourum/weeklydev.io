@@ -1,0 +1,32 @@
+version: '2'
+services:
+
+  mongo:
+    image: mongo:3.2
+    networks:
+      - backend
+
+  app:
+    build: ./Client
+    ports:
+      - "3000:3000"
+    networks:
+      - public
+    environment:
+      - SERVER_HOST=http://server:1337
+
+  server:
+    build: ./Server
+    ports:
+      - "1337:1337"
+    networks:
+      - public
+      - backend
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/weeklydev_dev
+
+networks:
+  public:
+    driver: bridge
+  backend:
+    driver: bridge
