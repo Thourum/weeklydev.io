@@ -4,34 +4,40 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const TeamModel = new Schema({
-  project_id: {
-    type: ObjectId,
-    required: true
+  project: {
+    type: Schema.Types.ObjectId,
+    required: false,
+    ref: 'Project'
   },
-  project_submission_id: {
-    type: ObjectId,
-    required: true
+  submission: {
+    type: Schema.Types.ObjectId,
+    required: false,
+    ref: 'Submission'
   },
-  project_manager: {
-    type: ObjectId,
-    required: true
-  },
-  lead_frontend: {
-    type: ObjectId,
-    required: true
-  },
-  frontend: {
-    type: ObjectId,
-    required: true
-  },
-  lead_backend: {
-    type: ObjectId,
-    required: true
-  },
-  backend: {
-    type: ObjectId,
-    required: true
-  }
+  manager: [{
+    role: Number,
+    user: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    }
+  }],
+  frontend: [{
+    role: Number,
+    user: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    }
+  }],
+  backend: [{
+    role: Number,
+    user: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
+    }
+  }]
 });
 
 module.exports = mongoose.model('Team', TeamModel, 'teams');
