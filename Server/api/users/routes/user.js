@@ -31,15 +31,16 @@ module.exports = [{
     user.username = req.payload.username;
     user.admin = false;
     user.password = req.payload.password;
-    user.uuid = generateUUID();
-    user.token = createToken(user);
+    user.token.uuid = generateUUID();
+    user.token.full = createToken(user);
+    user.token.valid = true;
     // user.token_expire.expire = (Date.now() + (24 * 60 * 60))
     user.save((err, user) => {
       if (err) {
         throw Boom.badRequest(err);
       }
       // If the user is saved successfully, Send a JWT
-      res(formatUser(user)).code(201);
+      res(formatUser(user, 'user')).code(201);
     });
   }
 }, {
@@ -61,7 +62,7 @@ module.exports = [{
       }
     }, function (err, user) {
       if (err) return console.error(err);
-      res(formatUser(user));
+      res(formatUser(user), 'user');
     });
   }
 }, {
@@ -77,7 +78,7 @@ module.exports = [{
     if (req.params.id) {
       User.findById(req.params.id, function (err, user) {
         if (err) return console.error(err);
-        res(formatUser(user)).code(200);
+        res(formatUser(user, 'users')).code(200);
       });
     } else {
       User.find(function (err, users) {
@@ -87,7 +88,7 @@ module.exports = [{
         } else {
           var Users = [];
           users.forEach((user) => {
-            Users.push(formatUser(user));
+            Users.push(formatUser(user, 'users'));
           });
           res(Users);
         }
@@ -108,7 +109,7 @@ module.exports = [{
       if (err || !user) {
         res(Boom.unauthorized('user not found'));
       } else {
-        res(formatUser(user));
+        res(formatUser(user, 'user'));
       }
     });
   }
@@ -119,19 +120,23 @@ module.exports = [{
   method: 'DELETE',
   path: '/users/{id}',
   config: {
-    auth: false
+    auth: 'jwt'
   },
   handler: (req, res) => {
-    User.findByIdAndRemove(req.params.id, (err, user) => {
-      if (err) {
-        console.error(err);
-        res(Boom.wrap(err, 400));
-      }
-      if (user) {
-        res(formatUser(user)).code(200);
-      } else {
-        res(Boom.notFound('User not found'));
-      }
-    });
+    if (req.Token.id === req.params.id || req.Token.scope === 'admin') {
+      User.findByIdAndRemove(req.params.id, (err, user) => {
+        if (err) {
+          console.error(err);
+          res(Boom.wrap(err, 400));
+        }
+        if (user) {
+          res(formatUser(user)).code(200);
+        } else {
+          res(Boom.notFound('User not found'));
+        }
+      });
+    } else {
+      res(Boom.unauthorized('you cannot delete account that is not yours'));
+    }
   }
 }];

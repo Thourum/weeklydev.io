@@ -12,13 +12,12 @@ function createToken (user, expires) {
     scopes = 'admin';
   }
 
-  expires = expires || '24H';
+  expires = expires || '365 days';
 
   // Sign the JWT
   return jwt.sign({
     id: user._id,
-    uuid: user.token_uuid,
-    username: user.username,
+    uuid: user.token.uuid,
     scope: scopes
   }, secret, {
     algorithm: 'HS256',

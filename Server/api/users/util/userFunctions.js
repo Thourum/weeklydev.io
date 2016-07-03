@@ -21,9 +21,11 @@ function verifyUniqueUser (req, res) {
     if (user) {
       if (user.username === req.payload.username) {
         res(Boom.badRequest('Username taken'));
+        return;
       }
       if (user.email === req.payload.email) {
         res(Boom.badRequest('Email taken'));
+        return;
       }
     }
     // If no username or email is found send it on
@@ -43,7 +45,7 @@ function authenticateUser (req, res) {
       res(Boom.badRequest('User not found!'));
       return;
     }
-    user.token_uuid = generateUUID();
+    user.token.uuid = generateUUID();
     user.save((err, user) => {
       if (err) {
         console.log('-- Something went wrong:');
@@ -57,16 +59,47 @@ function authenticateUser (req, res) {
   });
 }
 
-function userModel (user) {
-  let obj = {
-    id: user.id,
-    email: user.email,
-    username: user.username,
-    admin: user.admin,
-    team: user.team,
-    project: user.project,
-    token: user.token
-  };
+function userModel (user, opts) {
+  switch (opts) {
+    case 'admin':
+      let obj = {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        admin: user.admin,
+        team: user.team,
+        project: user.project
+      };
+      break;
+    case 'user':
+      let obj = {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        admin: user.admin,
+        team: user.team,
+        project: user.project,
+        token: user.token.full
+      };
+      break;
+    case 'users':
+      let obj = {
+        id: user.id,
+        username: user.username,
+        admin: user.admin,
+        team: user.team,
+        project: user.project
+      };
+      break;
+    default:
+      let obj = {
+        id: user.id,
+        username: user.username,
+        team: user.team,
+        project: user.project
+      };
+  }
+
   return obj;
 }
 
