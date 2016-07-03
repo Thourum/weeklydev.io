@@ -3,8 +3,8 @@
 const Boom = require('boom');
 const Survey = require('../models/Survey');
 const User = require('../../users/models/User');
-const validateRole = require('../util/validateRole');
 const createNewSurvey = require('../util/surveySchema');
+const surveySchema = require('../schemas/surveySchema');
 // const surveySchema = require('../schemas/survey')
 
 module.exports = [{
@@ -32,12 +32,8 @@ module.exports = [{
   path: '/surveys',
   config: {
     // Validate the payload against the Joi schema
-    // pre: [{
-    // 	method: createNewSurvey,
-    // }],
-
     validate: {
-      // payload: surveySchema
+      payload: surveySchema
     },
     auth: 'jwt'
   },
@@ -46,13 +42,12 @@ module.exports = [{
     Survey.findOneAndUpdate({
       user_id: req.Token.id
     }, {
-      // TODO: move checks
       user_id: req.Token.id,
-      preferred_role: validateRole(payload.role),
+      preferred_role: payload.role,
       project_manager: payload.projectManager,
-      skill_level: ((payload.skill >= 1 && payload.skill <= 5) ? payload.skill : 1),
-      project_size: ((payload.size >= 5 && payload.size <= 20) ? payload.size : 5),
-      timezone: ((payload.timezone >= -12 && payload.timezone <= 12) ? payload.timezone : 0)
+      skill_level: payload.skill,
+      project_size: payload.size,
+      timezone: payload.timezone
     }, (err, survey) => {
       if (err) {
         res(Boom.badRequest(err));
@@ -83,13 +78,8 @@ module.exports = [{
   path: '/surveys',
   config: {
     // Validate the payload against the Joi schema
-    pre: [{
-      method: createNewSurvey
-    }],
-
     validate: {
-      // TODO: do survey post validation schema
-      // payload: surveySchema
+      payload: surveySchema
     },
     auth: 'jwt'
   },
@@ -98,11 +88,11 @@ module.exports = [{
 
     var survey = new Survey();
     survey.user_id = req.Token.id;
-    survey.preferred_role = validateRole(payload.role);
+    survey.preferred_role = payload.role;
     survey.project_manager = payload.projectManager;
-    survey.skill_level = ((payload.skill >= 1 && payload.skill <= 5) ? payload.skill : 1);
-    survey.project_size = ((payload.size >= 5 && payload.size <= 20) ? payload.size : 5);
-    survey.timezone = ((payload.timezone >= -12 && payload.timezone <= 12) ? payload.timezone : 0);
+    survey.skill_level = payload.skill;
+    survey.project_size = payload.size;
+    survey.timezone = payload.timezone;
     survey.save((err, survey) => {
       if (err) {
         throw Boom.badRequest(err);
