@@ -59,16 +59,47 @@ function authenticateUser (req, res) {
   });
 }
 
-function userModel (user) {
-  let obj = {
-    id: user.id,
-    email: user.email,
-    username: user.username,
-    admin: user.admin,
-    team: user.team,
-    project: user.project,
-    token: user.token.full
-  };
+function userModel (user, opts) {
+  switch (opts) {
+    case 'admin':
+      let obj = {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        admin: user.admin,
+        team: user.team,
+        project: user.project
+      };
+      break;
+    case 'user':
+      let obj = {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        admin: user.admin,
+        team: user.team,
+        project: user.project,
+        token: user.token.full
+      };
+      break;
+    case 'users':
+      let obj = {
+        id: user.id,
+        username: user.username,
+        admin: user.admin,
+        team: user.team,
+        project: user.project
+      };
+      break;
+    default:
+      let obj = {
+        id: user.id,
+        username: user.username,
+        team: user.team,
+        project: user.project
+      };
+  }
+
   return obj;
 }
 

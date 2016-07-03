@@ -30,7 +30,7 @@ module.exports = {
         if (err) {
           throw Boom.badRequest(err);
         }
-        res(formatUser(user)).code(200);
+        res(formatUser(user, 'user')).code(200);
       });
     });
   }

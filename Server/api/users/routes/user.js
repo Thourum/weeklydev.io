@@ -40,7 +40,7 @@ module.exports = [{
         throw Boom.badRequest(err);
       }
       // If the user is saved successfully, Send a JWT
-      res(formatUser(user)).code(201);
+      res(formatUser(user, 'user')).code(201);
     });
   }
 }, {
@@ -62,7 +62,7 @@ module.exports = [{
       }
     }, function (err, user) {
       if (err) return console.error(err);
-      res(formatUser(user));
+      res(formatUser(user), 'user');
     });
   }
 }, {
@@ -78,7 +78,7 @@ module.exports = [{
     if (req.params.id) {
       User.findById(req.params.id, function (err, user) {
         if (err) return console.error(err);
-        res(formatUser(user)).code(200);
+        res(formatUser(user, 'users')).code(200);
       });
     } else {
       User.find(function (err, users) {
@@ -88,7 +88,7 @@ module.exports = [{
         } else {
           var Users = [];
           users.forEach((user) => {
-            Users.push(formatUser(user));
+            Users.push(formatUser(user, 'users'));
           });
           res(Users);
         }
@@ -109,7 +109,7 @@ module.exports = [{
       if (err || !user) {
         res(Boom.unauthorized('user not found'));
       } else {
-        res(formatUser(user));
+        res(formatUser(user, 'user'));
       }
     });
   }
