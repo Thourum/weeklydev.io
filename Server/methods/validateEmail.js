@@ -1,4 +1,5 @@
+var Joi = require('joi');
+var schema = { email: Joi.string().email({minDomainAtoms: 2}) };
 module.exports = (email) => {
-  var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
+  return ((Joi.validate({email: email}, schema).error === null) ? true : false);
 };

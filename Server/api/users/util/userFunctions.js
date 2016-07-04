@@ -3,7 +3,6 @@
 const Boom = require('boom');
 const User = require('../models/User');
 const createToken = require('./token');
-const validateEmail = require('../../../methods/validateEmail');
 const generateUUID = require('../../../methods/generateUUID');
 
 function verifyUniqueUser (req, res) {
