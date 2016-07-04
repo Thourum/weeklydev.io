@@ -9,10 +9,10 @@ const SurveyModel = new Schema({
     required: true,
     ref: 'User'
   },
-  preferred_role: {
+  preferred_role: [{
     type: String,
     required: true
-  },
+  }],
   project_manager: {
     type: Boolean,
     required: true
