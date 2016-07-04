@@ -14,6 +14,11 @@ const TeamModel = new Schema({
     required: false,
     ref: 'Submission'
   },
+  owner: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
+  },
   manager: [{
     role: Number,
     user: {
