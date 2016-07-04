@@ -19,7 +19,7 @@ const SubmissionModel = new Schema({
   images: [String],
   date: {
     created: { type: Date, default: Date.now },
-    due: { type: Date, default: Date.now }
+    due: Date
   }
 });
 
