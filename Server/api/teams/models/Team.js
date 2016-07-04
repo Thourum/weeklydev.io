@@ -7,12 +7,14 @@ const TeamModel = new Schema({
   project: {
     type: Schema.Types.ObjectId,
     required: false,
-    ref: 'Project'
+    ref: 'Project',
+    dafault: null
   },
   submission: {
     type: Schema.Types.ObjectId,
     required: false,
-    ref: 'Submission'
+    ref: 'Submission',
+    dafault: null
   },
   owner: {
     type: Schema.Types.ObjectId,
@@ -42,7 +44,18 @@ const TeamModel = new Schema({
       required: true,
       ref: 'User'
     }
-  }]
+  }],
+  meta: {
+    created: {type: Date, default: Date.now()},
+    disband: Date,
+    members: [{
+      id: Schema.Types.ObjectId,
+      date: {
+        joined: {type: Date, default: Date.now()},
+        leave: Date
+      }
+    }]
+  }
 });
 
 module.exports = mongoose.model('Team', TeamModel, 'teams');
