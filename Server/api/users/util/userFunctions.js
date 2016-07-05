@@ -61,7 +61,7 @@ function authenticateUser (req, res) {
 function userModel (user, opts) {
   switch (opts) {
     case 'admin':
-      let obj = {
+      return {
         id: user.id,
         email: user.email,
         username: user.username,
@@ -69,9 +69,8 @@ function userModel (user, opts) {
         team: user.team,
         project: user.project
       };
-      break;
     case 'user':
-      let obj = {
+      return {
         id: user.id,
         email: user.email,
         username: user.username,
@@ -80,26 +79,22 @@ function userModel (user, opts) {
         project: user.project,
         token: user.token.full
       };
-      break;
     case 'users':
-      let obj = {
+      return {
         id: user.id,
         username: user.username,
         admin: user.admin,
         team: user.team,
         project: user.project
       };
-      break;
     default:
-      let obj = {
+      return {
         id: user.id,
         username: user.username,
         team: user.team,
         project: user.project
       };
   }
-
-  return obj;
 }
 
 module.exports = {

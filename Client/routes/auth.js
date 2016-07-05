@@ -1,6 +1,7 @@
 var express = require('express');
 var request = require('request'); // HTTP request library
 var router = express.Router();
+var serverHost = require('../config').SERVER_HOST;
 
 // GET
 router.get('/login', function (req, res, next) {
@@ -30,7 +31,7 @@ router.post('/login', function (req, res, next) {
 
   // API HTTP request options
   var requestOptions = {
-    url: 'http://localhost:1337/login',
+    url: serverHost+'/login',
     headers: {
       'Authorization': 'Basic ' + (new Buffer(email.toLowerCase() + ':' + password).toString('base64'))
     }
@@ -78,7 +79,7 @@ router.post('/register', function (req, res, next) {
 
   // API HTTP request options
   var requestOptions = {
-    url: 'http://localhost:1337/users/new',
+    url: serverHost+'/users/new',
     form: {email: email.toLowerCase(), username: username, password: password}
   };
 
