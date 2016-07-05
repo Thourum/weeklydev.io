@@ -11,14 +11,13 @@
         <a href="/">Home</a>
       </li>
       <li>
-        <a href="/login">Login</a>
-      </li>
-      <li>
-        <a href="/register">Register</a>
-      </li>
-      <li>
         <a href="/profile">My Account</a>
       </li>
+      <% if (locals.auth) { %>
+        <li>
+          <a href="/auth/logout">Logout</a>
+        </li>
+      <% } %>
     </div>
   </div>
 </nav>

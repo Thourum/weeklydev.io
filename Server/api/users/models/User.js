@@ -5,70 +5,69 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const UserModel = new Schema({
-	email: {
-		type: String,
-		required: true,
-		index: {
-			unique: true
-		}
-	},
-	password: {
-		type: String,
-		required: true
-	},
-	username: {
-		type: String,
-		required: true,
-		index: {
-			unique: true
-		}
-	},
-	admin: {
-		type: Boolean,
-		required: true
-	},
-	team: [{
-		type: Schema.Types.ObjectId,
-		required: false
-	}],
-  project:[{
+  email: {
+    type: String,
+    required: true,
+    index: {
+      unique: true
+    }
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true,
+    index: {
+      unique: true
+    }
+  },
+  admin: {
+    type: Boolean,
+    required: true
+  },
+  team: [{
     type: Schema.Types.ObjectId,
     required: false
   }],
-	survey_id: {
-		type: Schema.Types.ObjectId,
-		required: false
-	},
-	is_searching: {
-		type: Boolean,
-		default: true,
-		required: true
-	},
-	created_on: {
-		type: Date,
-		default: Date.now
-	},
-  token: String,
-  token_uuid: String,
-  token_expire: {
-    set: {type: Date, default: Date.now },
-    expire: Date,
+  project: [{
+    type: Schema.Types.ObjectId,
+    required: false
+  }],
+  survey_id: {
+    type: Schema.Types.ObjectId,
+    required: false
   },
-  salt: String,
+  is_searching: {
+    type: Boolean,
+    default: true,
+    required: true
+  },
+  created_on: {
+    type: Date,
+    default: Date.now
+  },
+  token: {
+    full: String,
+    uuid: String,
+    valid: Boolean
+  },
+  salt: String
 });
 
 UserModel
   .path('password')
-  .validate(function(password) {
+  .validate(function (password) {
     return password.length;
   }, 'Password cannot be blank');
 
-var validatePresenceOf = function(value) {
+var validatePresenceOf = function (value) {
   return value && value.length;
 };
 
 UserModel
-	.pre('save', function(next) {
+  .pre('save', function (next) {
     // Handle new/update passwords
     if (!this.isModified('password')) {
       return next();
@@ -94,10 +93,9 @@ UserModel
     });
   });
 
-
 UserModel.methods = {
 
-	/**
+  /**
    * Authenticate - check if the passwords are the same
    *
    * @param {String} password
@@ -110,11 +108,11 @@ UserModel.methods = {
       return bcrypt.compareSync(password, this.password);
     }
 
-    bcrypt.compare(password, this.password, (err, res) =>{
+    bcrypt.compare(password, this.password, (err, res) => {
       if (err) {
         return callback(err);
       } else {
-        callback(null, res)
+        callback(null, res);
       }
     });
   },
@@ -169,10 +167,10 @@ UserModel.methods = {
     var salt = this.salt;
 
     if (!callback) {
-      return bcrypt.hashSync(password , salt).toString('base64');
+      return bcrypt.hashSync(password, salt).toString('base64');
     }
 
-    return bcrypt.hash(password , salt, (err, key) => {
+    return bcrypt.hash(password, salt, (err, key) => {
       if (err) {
         callback(err);
       } else {

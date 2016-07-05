@@ -1,0 +1,87 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>  
+<html lang="en">  
+  <% include ../partials/head %>
+  <body>
+  
+    <% include ../partials/nav %>
+
+    <div class="row padded">
+      <div class="medium-8 medium-centered large-6 large-centered columns">
+
+        <form method="post" name="profile_edit_form" data-abide novalidate>
+          <div class="row column profile-edit-form">
+            <h4 class="text-center">Edit Your Profile</h4>
+
+            <% if (locals.error) { %>
+              <div class="error">
+                <p><%= error %></p>
+              </div>
+            <% } %>
+
+            <% if (locals.message) { %>
+              <div class="message">
+                <p><%= message %></p>
+              </div>
+            <% } %>
+
+            <label>Preferred Role
+              <select id="role" name="role" required>
+                <option value="">Choose a development position...</option>
+                <option value="frontend">Frontend</option>
+                <option value="backend">Backend</option>
+              </select>
+              <span class="form-error">Please choose a role.</span>
+            </label>
+            <label>Skill Level
+              <select id="skill" name="skill" required>
+                <option value="">Choose a skill level...</option>
+                <option value="1">1 - Want to Learn</option>
+                <option value="2">2 - Beginner</option>
+                <option value="3">3 - Intermediate</option>
+                <option value="4">4 - Advanced</option>
+                <option value="5">5 - Master</option>
+              </select>
+              <span class="form-error">Please choose a skill level.</span>
+            </label>
+            <label>Preferred Team Size
+              <select id="size" name="size" required>
+                <option value="">Choose a team size...</option>
+                <option value="5">Small</option>
+                <option value="10">Medium</option>
+                <option value="20">Large</option>
+              </select>
+              <span class="form-error">Please choose a team size.</span>
+            </label>
+            <label>
+              What is your timezone offset? (UTC/GMT)<br>
+              If you're not sure, go to <a href="http://time.is/">http://time.is/</a>, scroll down to the time zone section, and enter the offset listed there.
+              <select id="timezone" name="timezone" required>
+                <option value="">Choose a timezone offset...</option>
+                <% for (var i=-12; i<=12; i++) { %>
+                  <option value="<%= i%>">UTC/GMT <% if (i > 0) {%>+<% } %><%= i%></option>
+                <% } %>
+              </select>
+              <span class="form-error">Please choose a timezone.</span>
+            </label>
+            <label>Are you willing to be a project manager? Come on, it'll be fun!
+              <div class="switch">
+                <input class="switch-input" id="project-manager" name="projectmanager" type="checkbox" value="true" checked>
+                <label class="switch-paddle" for="project-manager">
+                  <span class="show-for-sr">Willing to be project manager.</span>
+                  <span class="switch-active" aria-hidden="true">Yes</span>
+                  <span class="switch-inactive" aria-hidden="true">No</span>
+                </label>
+              </div>
+            </label>
+            <p><button class="button expanded">Save Profile</button></p>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <% include ../partials/scripts %>
+  </body>
+</html>  

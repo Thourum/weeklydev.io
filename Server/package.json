@@ -1,36 +1,39 @@
 {
-  "name": "socket-chat",
+  "name": "weekly-dev-api",
   "version": "1.0.0",
-  "description": "A chat using sockets",
+  "description": "A RESTful api for interacting with the weekly dev databases",
   "main": "app.js",
   "scripts": {
-    "test": "lol no",
+    "test": "mocha tests/**/*.js",
     "start": "node app.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maxemiliang/socket-chat.git"
+    "url": "git+https://github.com/weeklydev/weeklydev.io.git"
   },
   "author": "Maxemiliang contact@maxemiliang.me",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/maxemiliang/socket-chat/issues"
+    "url": "https://github.com/weeklydev/weeklydev.io/issues"
   },
-  "homepage": "https://github.com/maxemiliang/socket-chat#readme",
+  "homepage": "https://github.com/weeklydev/weeklydev.io#readme",
   "dependencies": {
     "bcrypt": "^0.8.7",
     "boom": "^3.2.1",
     "glob": "^7.0.3",
     "hapi": "^11.1.3",
-    "hapi-auth-basic": "^4.2.0",
+    "hapi-auth-basic-weeklydev-login": "^4.2.1",
     "hapi-auth-jwt2": "^7.0.1",
     "joi": "^8.4.1",
     "jsonwebtoken": "^7.0.0",
     "mongoose": "^4.4.20",
-<<<<<<< HEAD
+    "nodemailer": "*",
     "node-uuid": "^1.4.7"
-=======
-    "nodemailer": "*"
->>>>>>> master
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^2.5.3",
+    "semistandard": "^8.0.0"
   }
 }

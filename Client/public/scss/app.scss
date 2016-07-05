@@ -87,3 +87,19 @@ nav
 {
   padding: 3em 0;
 }
+
+.error
+{
+  text-align: center;
+  width: 100%;
+  border: 1px solid #ea2c2c;
+  background: #fcefef;
+  padding: 0.8em;
+  margin: 2em 0;
+  color: #ea2c2c;
+
+  p
+  {
+    margin: 0;
+  }
+}

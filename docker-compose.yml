@@ -1,0 +1,35 @@
+version: '2'
+services:
+
+  mongo:
+    container_name: mongodb
+    image: mongo:3.2
+    networks:
+      - backend
+
+  app:
+    container_name: frontend
+    build: ./Client
+    ports:
+      - "3000:3000"
+    networks:
+      - public
+    environment:
+      - SERVER_HOST=http://server:1337
+
+  server:
+    container_name: api_server
+    build: ./Server
+    ports:
+      - "1337:1337"
+    networks:
+      - public
+      - backend
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/weeklydev_dev
+
+networks:
+  public:
+    driver: bridge
+  backend:
+    driver: bridge
