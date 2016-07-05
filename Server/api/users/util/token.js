@@ -1,7 +1,7 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
-const secret = require('../../../config');
+const secret = require('../../../config').JWT_SECRET;
 
 function createToken (user, expires) {
   let scopes = 'user';
