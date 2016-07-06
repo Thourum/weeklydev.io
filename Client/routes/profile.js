@@ -41,8 +41,6 @@ router.post('/settings', function (req, res, next) {
     }
   };
 
-  console.log(req.session.user.token);
-
   // send request to API
   request.post(requestOptions, function (error, response, body) {
     // if there are database errors, send an error message.
