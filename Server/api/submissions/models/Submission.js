@@ -4,29 +4,22 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const SubmissionModel = new Schema({
-  project_id: {
-    type: ObjectId,
-    required: true
+  project: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'Project'
   },
-  team_id: {
-    type: ObjectId,
-    required: true
+  team: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: 'Team'
   },
-  thumbnail_url: {
-    type: String,
-    required: true
-  },
-  image_urls: {
-    type: Array,
-    required: true
-  },
-  repo_url: {
-    type: String,
-    required: true
-  },
-  submission_time: {
-    type: Date,
-    required: true
+  repo_url: { type: String, required: true },
+  thumbnail: String,
+  images: [String],
+  date: {
+    created: { type: Date, default: Date.now },
+    due: Date
   }
 });
 

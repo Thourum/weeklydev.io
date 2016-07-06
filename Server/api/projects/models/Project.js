@@ -8,17 +8,17 @@ var ProjectModel = new Schema({
     type: String,
     required: true
   },
-  details: {
+  description: {
     type: String,
     required: true
   },
   deadline: {
-    type: String,
+    type: Date,
     required: false
   },
   created_on: {
     type: Date,
-    required: false
+    default: Date.now()
   }
 });
 

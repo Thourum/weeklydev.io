@@ -6,12 +6,13 @@ const Schema = mongoose.Schema;
 const SurveyModel = new Schema({
   user_id: {
     type: Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'User'
   },
-  preferred_role: {
+  preferred_role: [{
     type: String,
     required: true
-  },
+  }],
   project_manager: {
     type: Boolean,
     required: true

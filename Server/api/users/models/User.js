@@ -29,15 +29,18 @@ const UserModel = new Schema({
   },
   team: [{
     type: Schema.Types.ObjectId,
-    required: false
+    required: false,
+    ref: 'Team'
   }],
   project: [{
     type: Schema.Types.ObjectId,
-    required: false
+    required: false,
+    ref: 'Project'
   }],
-  survey_id: {
+  survey: {
     type: Schema.Types.ObjectId,
-    required: false
+    required: false,
+    ref: 'Survey'
   },
   is_searching: {
     type: Boolean,

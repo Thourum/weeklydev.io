@@ -130,7 +130,7 @@ module.exports = [{
           res(Boom.wrap(err, 400));
         }
         if (user) {
-          res(formatUser(user)).code(200);
+          res(formatUser(user, 'user')).code(200);
         } else {
           res(Boom.notFound('User not found'));
         }
