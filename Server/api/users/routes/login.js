@@ -16,7 +16,7 @@ module.exports = {
       method: authenticateUser,
       assign: 'user'
     }],
-    auth: 'userPass', // Requires basic auth (username:password)
+    auth: 'userPass' // Requires basic auth (username:password)
   },
   handler: (req, res) => {
     User.findById(req.Credentials.id, (err, user) => {

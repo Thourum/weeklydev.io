@@ -1,6 +1,7 @@
 var express = require('express');
 var request = require('request'); // HTTP request library
 var router = express.Router();
+var serverHost = require('../config').SERVER_HOST;
 
 // authentication middleware
 router.get('/*', function (req, res, next) {
@@ -27,7 +28,7 @@ router.post('/settings', function (req, res, next) {
 
   // API HTTP request options
   var requestOptions = {
-    url: 'http://localhost:1337/surveys',
+    url: serverHost + '/surveys',
     headers: {
       'Authorization': 'bearer ' + req.session.user.token
     },

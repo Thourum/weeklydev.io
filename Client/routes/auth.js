@@ -31,7 +31,7 @@ router.post('/login', function (req, res, next) {
 
   // API HTTP request options
   var requestOptions = {
-    url: serverHost+'/login',
+    url: serverHost + '/login',
     headers: {
       'Authorization': 'Basic ' + (new Buffer(email.toLowerCase() + ':' + password).toString('base64'))
     }
@@ -79,7 +79,7 @@ router.post('/register', function (req, res, next) {
 
   // API HTTP request options
   var requestOptions = {
-    url: serverHost+'/users/new',
+    url: serverHost + '/users/new',
     form: {email: email.toLowerCase(), username: username, password: password}
   };
 
