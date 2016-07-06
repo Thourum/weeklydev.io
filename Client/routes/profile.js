@@ -33,7 +33,7 @@ router.post('/settings', function (req, res, next) {
       'Authorization': 'bearer ' + req.session.user.token
     },
     form: {
-      role: role,
+      'role[0]': role,
       skill: skill,
       size: projectSize,
       projectManager: isProjectManager,
