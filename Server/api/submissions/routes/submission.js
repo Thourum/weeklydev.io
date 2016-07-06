@@ -18,7 +18,7 @@ module.exports = [{
     },
     auth: 'jwt'
   },
-  handler: _.postSubmission
+  handler: _.addSubmission
 }, {
   method: 'PUT',
   path: '/submissions/{id}',
