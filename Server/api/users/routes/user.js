@@ -21,6 +21,16 @@ module.exports = [{
   handler: _.addUser
 }, {
   /**
+   * Get all users
+   */
+  method: 'GET',
+  path: '/users',
+  config: {
+    auth: 'jwt'
+  },
+  handler: _.getUsers
+}, {
+  /**
    * Update user by ID
    */
   method: 'PUT',
@@ -31,24 +41,14 @@ module.exports = [{
   handler: _.updateUser
 }, {
   /**
-   * Get all users or one user by id
+   * Get users one user by id
    */
   method: 'GET',
-  path: '/users/{id?}',
+  path: '/users/{id}',
   config: {
     auth: 'jwt'
   },
   handler: _.getUser
-}, {
-  /**
-   * Get user by request id
-   */
-  method: 'GET',
-  path: '/users/me',
-  config: {
-    auth: 'jwt'
-  },
-  handler: _.getCurrentUser
 }, {
   /**
    * Update user by ID
@@ -59,4 +59,14 @@ module.exports = [{
     auth: 'jwt'
   },
   handler: _.deleteUser
+}, {
+  /**
+   * Get user by request id
+   */
+  method: 'GET',
+  path: '/users/me',
+  config: {
+    auth: 'jwt'
+  },
+  handler: _.getCurrentUser
 }];
