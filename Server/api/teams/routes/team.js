@@ -49,4 +49,15 @@ module.exports = [{
     auth: 'jwt'
   },
   handler: _.addUserToTeam
+}, {
+  // Request a join to a team (every User)
+  method: 'POST',
+  path: '/teams/{id}/join',
+  config: {
+    // validate: {
+    //   payload: teamSchema // TOOD: add a new validation otherwise this will not work
+    // },
+    auth: 'jwt'
+  },
+  handler: _.requestJoinToTeam
 }];

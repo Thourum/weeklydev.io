@@ -45,6 +45,11 @@ const TeamModel = new Schema({
       ref: 'User'
     }
   }],
+  requests: [{
+    user: Schema.Types.ObjectId,
+    role: String,
+    msg: String
+  }],
   meta: {
     created: {type: Date, default: Date.now()},
     disband: Date,
