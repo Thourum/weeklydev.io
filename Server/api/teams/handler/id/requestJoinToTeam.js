@@ -5,7 +5,7 @@ const Team = require('../../models/Team');
 const Code = require('../../../../config/errorCodes');
 
 module.exports = (req, res) => {
-  Team.findOneById(req.params.id, (err, team) => {
+  Team.findById(req.params.id, (err, team) => {
     if (team.requests.lenght >= 10) {
       res(Code.maxRequestsReached);
     }else {

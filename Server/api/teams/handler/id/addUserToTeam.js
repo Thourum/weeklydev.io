@@ -8,7 +8,7 @@ const findUserInTeam = require('../../util/teamFunctions').findUserInTeam;
 // NOTE: ex. (Max manager in a team: 2, Max backend developers in a team: 4, max time team can be inacive before deletion: 2W )
 
 module.exports = (req, res) => {
-  Team.findOneById(req.params.id, (err, team) => {
+  Team.findById(req.params.id, (err, team) => {
     if (req.Token.id === team.owner) {
       if (findUserInTeam(user, [team.manager, team.backend, team.frontend])) {
         res(Code.userInTeam);
