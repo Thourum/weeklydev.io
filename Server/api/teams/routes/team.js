@@ -38,4 +38,15 @@ module.exports = [{
     auth: 'jwt'
   },
   handler: _.deleteTeam
+}, {
+  // Add a user to team (only owner)
+  method: 'POST',
+  path: '/teams/{id}/add',
+  config: {
+    // validate: {
+    //   payload: teamSchema // TOOD: add a new validation otherwise this will not work
+    // },
+    auth: 'jwt'
+  },
+  handler: _.addUserToTeam
 }];

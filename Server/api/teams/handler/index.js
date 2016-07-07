@@ -3,4 +3,5 @@ module.exports = {
   getTeams: require('./getTeams'),
   updateTeam: require('./id/updateTeam'),
   deleteTeam: require('./id/deleteTeam')
+  addUserToTeam: require('./id/addUserToTeam'),
 };
