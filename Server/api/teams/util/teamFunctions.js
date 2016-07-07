@@ -27,7 +27,21 @@ function arrayChecker (role, role_level) {
     return true;
   }
 }
+
+function findUserInTeam (user, arrayOfRoles) {
+  function userFind (array) {
+    return array.user === user;
+  }
+  for (var i = 0; i < arrayOfRoles.length; i++) {
+    if (arrayOfRoles[i].find(userFind)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 module.exports = {
   arrayChecker: arrayChecker,
-  getRoles: roleCompare
+  getRoles: roleCompare,
+  findUserInTeam: findUserInTeam
 };
