@@ -9,8 +9,8 @@ const findUserInTeam = require('../../util/teamFunctions').findUserInTeam;
 
 module.exports = (req, res) => {
   Team.findById(req.params.id, (err, team) => {
-    if (req.Token.id === team.owner) {
-      if (findUserInTeam(user, [team.manager, team.backend, team.frontend])) {
+    if (req.Token.id == team.owner) {
+      if (findUserInTeam(req.payload.user, [team.manager, team.backend, team.frontend])) {
         res(Code.userInTeam);
       }else {
         switch (req.payload.role) {
@@ -40,8 +40,17 @@ module.exports = (req, res) => {
             console.log(req.payload);
         }
         team.meta.members.push({id: req.payload.user});
-        res(team);
+        team.save((err, team) => {
+          if (err) {
+            console.log(err);
+            res(Boom.badImplementation(err));
+          }else {
+            res(team);
+          }
+        });
       }
+    }else {
+      res(Code.notOwner);
     }
   });
 };
